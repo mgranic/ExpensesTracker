@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Expense {
+struct Expense: Hashable {
     var price: Double
     var name: String
     
