@@ -9,6 +9,9 @@ import Foundation
 
 public class ExpenseHandler {
     func createExpense() {
-        print("Expense has been created")
+        Expense.expenses.append(Expense(price: 2.0, name: "Kava 2"))
+        for expense in Expense.expenses {
+            print("Price : \(expense)")
+        }
     }
 }

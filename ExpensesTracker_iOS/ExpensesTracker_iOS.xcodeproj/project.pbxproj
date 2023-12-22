@@ -15,6 +15,7 @@
 		20DEEBB82B35F51F00B63006 /* ExpensesTracker_iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEBB72B35F51F00B63006 /* ExpensesTracker_iOSUITests.swift */; };
 		20DEEBBA2B35F51F00B63006 /* ExpensesTracker_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEBB92B35F51F00B63006 /* ExpensesTracker_iOSUITestsLaunchTests.swift */; };
 		20DEEBC92B35F68100B63006 /* ExpenseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEBC82B35F68100B63006 /* ExpenseHandler.swift */; };
+		20DEEBCC2B35FAE600B63006 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEBCB2B35FAE600B63006 /* Expense.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		20DEEBB72B35F51F00B63006 /* ExpensesTracker_iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTracker_iOSUITests.swift; sourceTree = "<group>"; };
 		20DEEBB92B35F51F00B63006 /* ExpensesTracker_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTracker_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		20DEEBC82B35F68100B63006 /* ExpenseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseHandler.swift; sourceTree = "<group>"; };
+		20DEEBCB2B35FAE600B63006 /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 		20DEEB9B2B35F51D00B63006 /* ExpensesTracker_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				20DEEBCA2B35FAD800B63006 /* Model */,
 				20DEEBC72B35F5DF00B63006 /* ViewModel */,
 				20DEEBC62B35F55D00B63006 /* View */,
 				20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */,
@@ -144,6 +147,14 @@
 				20DEEBC82B35F68100B63006 /* ExpenseHandler.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		20DEEBCA2B35FAD800B63006 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				20DEEBCB2B35FAE600B63006 /* Expense.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +287,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20DEEBCC2B35FAE600B63006 /* Expense.swift in Sources */,
 				20DEEBC92B35F68100B63006 /* ExpenseHandler.swift in Sources */,
 				20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */,
 				20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */,
