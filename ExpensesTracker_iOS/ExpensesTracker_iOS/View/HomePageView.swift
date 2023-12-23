@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Charts
 
 struct HomePageView: View {
     @State var showCreateExpenseSheet: Bool = false
@@ -20,6 +21,14 @@ struct HomePageView: View {
             }
             .sheet(isPresented: $showCreateExpenseSheet) {
                 AddExpenseView(isPresentSheet: $showCreateExpenseSheet, expenseHandler: expenseHandler)
+            }
+            Chart {
+                ForEach(expenseHandler.expenses, id: \.self) { expense in
+                    BarMark(
+                        x: .value("Article", expense.name),
+                        y: .value("Price", expense.price)
+                    )
+                }
             }
             List {
                 ForEach(expenseHandler.expenses, id: \.self) { expense in
