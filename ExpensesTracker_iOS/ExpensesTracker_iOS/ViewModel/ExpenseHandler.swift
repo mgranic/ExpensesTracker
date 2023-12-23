@@ -9,21 +9,20 @@ import Foundation
 
 public class ExpenseHandler: ObservableObject {
     
-    @Published var expenses: [Expense] = []
+    @Published var expenses: [Expense] = [] // list of expenses shown to the user
     
+    // add expense to the list of expenses shown to the user
+    func updateListOfExpenses(name: String, price: Double) {
+        self.expenses.append(Expense(price: price, name: name))
+    }
+    
+    // create expense and update list of expenses shown to the user
     func createExpense(name: String, price: Double) {
         Expense.expenses.append(Expense(price: price, name: name))
-        getExpenses()
+        updateListOfExpenses(name: name, price: price)
     }
     
-    func createExpense_dummy() {
-        Expense.expenses.append(Expense(price: 2.0, name: "Kava 2"))
-        for expense in Expense.expenses {
-            print("Price : \(expense)")
-        }
-        getExpenses()
-    }
-    
+    // get all expenses from database
     func getExpenses() {
         expenses = Expense.expenses.map { $0 }
     }

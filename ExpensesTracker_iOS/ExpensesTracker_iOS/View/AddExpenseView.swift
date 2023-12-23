@@ -28,12 +28,9 @@ struct AddExpenseView: View {
 
             Button("Submit") {
                 expenseHandler.createExpense(name: name, price: price)
-                print("submit pressed (\(name) - \(price))")
                 isPresentSheet = false
             }
             Button("Cancel") {
-                // Handle submission
-                print("cancel pressed")
                 isPresentSheet = false
             }
         }

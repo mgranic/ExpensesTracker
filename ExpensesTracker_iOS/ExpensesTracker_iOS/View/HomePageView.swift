@@ -8,19 +8,18 @@
 import SwiftUI
 
 struct HomePageView: View {
-    @State var isPresentSheet: Bool = false
+    @State var showCreateExpenseSheet: Bool = false
     @StateObject var expenseHandler: ExpenseHandler = ExpenseHandler()
     
     var body: some View {
         VStack {
             Button(action: {
-                isPresentSheet.toggle()
-                //expenseHandler.createExpense()
+                showCreateExpenseSheet.toggle()
             }) {
                 Image(systemName: "plus.circle.fill")
             }
-            .sheet(isPresented: $isPresentSheet) {
-                AddExpenseView(isPresentSheet: $isPresentSheet, expenseHandler: expenseHandler)
+            .sheet(isPresented: $showCreateExpenseSheet) {
+                AddExpenseView(isPresentSheet: $showCreateExpenseSheet, expenseHandler: expenseHandler)
             }
             List {
                 ForEach(expenseHandler.expenses, id: \.self) { expense in
