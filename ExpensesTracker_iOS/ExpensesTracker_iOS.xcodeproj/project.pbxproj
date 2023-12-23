@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20B5AA222B36A4140083A341 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B5AA212B36A4140083A341 /* AddExpenseView.swift */; };
 		20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */; };
 		20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEB9E2B35F51D00B63006 /* HomePageView.swift */; };
 		20DEEBA12B35F51F00B63006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20DEEBA02B35F51F00B63006 /* Assets.xcassets */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		20B5AA212B36A4140083A341 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		20DEEB992B35F51D00B63006 /* ExpensesTracker_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpensesTracker_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTracker_iOSApp.swift; sourceTree = "<group>"; };
 		20DEEB9E2B35F51D00B63006 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				20DEEB9E2B35F51D00B63006 /* HomePageView.swift */,
+				20B5AA212B36A4140083A341 /* AddExpenseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 			files = (
 				20DEEBCC2B35FAE600B63006 /* Expense.swift in Sources */,
 				20DEEBC92B35F68100B63006 /* ExpenseHandler.swift in Sources */,
+				20B5AA222B36A4140083A341 /* AddExpenseView.swift in Sources */,
 				20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */,
 				20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */,
 			);

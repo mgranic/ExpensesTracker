@@ -11,7 +11,12 @@ public class ExpenseHandler: ObservableObject {
     
     @Published var expenses: [Expense] = []
     
-    func createExpense() {
+    func createExpense(name: String, price: Double) {
+        Expense.expenses.append(Expense(price: price, name: name))
+        getExpenses()
+    }
+    
+    func createExpense_dummy() {
         Expense.expenses.append(Expense(price: 2.0, name: "Kava 2"))
         for expense in Expense.expenses {
             print("Price : \(expense)")
