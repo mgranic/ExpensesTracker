@@ -13,26 +13,39 @@ struct HomePageView: View {
     @StateObject var expenseHandler: ExpenseHandler = ExpenseHandler()
     
     var body: some View {
-        VStack {
-            Button(action: {
-                showCreateExpenseSheet.toggle()
-            }) {
-                Image(systemName: "plus.circle.fill")
-            }
-            .sheet(isPresented: $showCreateExpenseSheet) {
-                AddExpenseView(isPresentSheet: $showCreateExpenseSheet, expenseHandler: expenseHandler)
-            }
-            Chart {
-                ForEach(expenseHandler.expenses) { expense in
-                    BarMark(
-                        x: .value("Article", expense.name),
-                        y: .value("Price", expense.price)
-                    )
+        NavigationStack {
+            VStack {
+                Button(action: {
+                    showCreateExpenseSheet.toggle()
+                }) {
+                    Text("Add expense")
+                    Image(systemName: "plus.circle.fill")
+                }
+                .sheet(isPresented: $showCreateExpenseSheet) {
+                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, expenseHandler:expenseHandler)
+                }
+                Chart {
+                    ForEach(expenseHandler.expenses) { expense in
+                        BarMark(
+                            x: .value("Article", expense.name),
+                            y: .value("Price", expense.price)
+                        )
+                    }
+                }
+                List {
+                    ForEach(expenseHandler.expenses) { expense in
+                        Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
+                    }
                 }
             }
-            List {
-                ForEach(expenseHandler.expenses) { expense in
-                    Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
+            .toolbar {
+                Menu {
+                    // TODO: change Text into NavigationLink to proper Views
+                    Text("Menu text 1")
+                    Text("Menu text 2")
+                } label: {
+                    Label("Menu", systemImage: "ellipsis.circle")
+                        .foregroundColor(.black)
                 }
             }
         }
