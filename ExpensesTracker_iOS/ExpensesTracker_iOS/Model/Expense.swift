@@ -20,7 +20,11 @@ struct Expense: Identifiable {
         Expense(id: Int.random(in: 1..<1000), price: 2.3, name: "Kava", category: Category.caffe),
         Expense(id: Int.random(in: 1..<1000), price: 1.4, name: "Kava", category: Category.caffe),
         Expense(id: Int.random(in: 1..<1000), price: 1.5, name: "Sok", category: Category.caffe),
-        Expense(id: Int.random(in: 1..<1000), price: 1.6, name: "Sok", category: Category.caffe)]
+        Expense(id: Int.random(in: 1..<1000), price: 1.6, name: "Sok", category: Category.caffe),
+        Expense(id: Int.random(in: 1..<1000), price: 50, name: "Meso", category: Category.food),
+        Expense(id: Int.random(in: 1..<1000), price: 90, name: "Gorivo", category: Category.transportation),
+        Expense(id: Int.random(in: 1..<1000), price: 300, name: "Registracija", category: Category.transportation),
+        Expense(id: Int.random(in: 1..<1000), price: 1000.0, name: "Kredit", category: Category.housing),]
 }
 
 enum Category: String, CaseIterable {

@@ -27,7 +27,7 @@ struct HomePageView: View {
                 Chart {
                     ForEach(expenseHandler.expenses) { expense in
                         BarMark(
-                            x: .value("Article", expense.name),
+                            x: .value("Article", expense.category.rawValue),
                             y: .value("Price", expense.price)
                         )
                     }
