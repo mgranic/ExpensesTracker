@@ -12,48 +12,52 @@ struct AddExpenseView: View {
     
     @Binding var isPresentSheet: Bool
     @State var name = ""
-    @State var price = 0.0
-    @State var category: Category = Category.caffe
+    @State var price: Double?
+    @State var category: Category = Category.none
     @StateObject var expenseHandler: ExpenseHandler
 
     var body: some View {
         VStack {
-            HStack(alignment: .center) {
-                Text("Name")
-                    .frame(maxWidth: .infinity, alignment: .center)
-                TextField("Name", text: $name)
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
-            HStack(alignment: .center) {
-                Text("Price")
-                    .frame(maxWidth: .infinity, alignment: .center)
-                TextField("Price", value: $price, format: .number)
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
-            HStack(alignment: .center) {
-                Picker("Category:", selection: $category) {
-                    ForEach(Category.allCases, id: \.self) { cat in
-                        Text("\(cat.rawValue)").tag(cat.rawValue)
+            Form {
+                Section {
+                    HStack(alignment: .center) {
+                        Text("Name")
+                        TextField("Name", text: $name)
+                    }
+                    HStack(alignment: .center) {
+                        Text("Price")
+                        TextField("Price", value: $price, format: .number)
+                            .keyboardType(.decimalPad)
+                    }
+                    HStack(alignment: .center) {
+                        Picker("Category:", selection: $category) {
+                            ForEach(Category.allCases, id: \.self) { cat in
+                                Text("\(cat.rawValue)").tag(cat.rawValue)
+                            }
+                        }
                     }
                 }
-                    .frame(maxWidth: .infinity, alignment: .center)
-            }
-            
-            
-            HStack {
-                Button("Submit") {
-                    expenseHandler.createExpense(name: name, price: price, category: category)
-                    isPresentSheet = false
+                
+                Section {
+                    HStack {
+                        Section {
+                            Button("Submit") {
+                                expenseHandler.createExpense(name: name, price: price!, category: category)
+                                isPresentSheet = false
+                            }
+                            .buttonStyle(.bordered)
+                            .controlSize(.large)
+                            .buttonBorderShape(.capsule)
+                        }
+                        .disabled(name.isEmpty || (category == Category.none) || (price == nil))
+                        Button("Cancel") {
+                            isPresentSheet = false
+                        }
+                        .buttonStyle(.bordered)
+                        .controlSize(.large)
+                        .buttonBorderShape(.capsule)
+                    }
                 }
-                    .buttonStyle(.bordered)
-                    .controlSize(.large)
-                    .buttonBorderShape(.capsule)
-                Button("Cancel") {
-                    isPresentSheet = false
-                }
-                    .buttonStyle(.bordered)
-                    .controlSize(.large)
-                    .buttonBorderShape(.capsule)
             }
         }
     }

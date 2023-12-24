@@ -24,6 +24,7 @@ struct Expense: Identifiable {
 }
 
 enum Category: String, CaseIterable {
+    case none
     case caffe
     case food
     case transportation
