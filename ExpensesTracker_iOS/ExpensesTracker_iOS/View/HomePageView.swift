@@ -23,7 +23,7 @@ struct HomePageView: View {
                 AddExpenseView(isPresentSheet: $showCreateExpenseSheet, expenseHandler: expenseHandler)
             }
             Chart {
-                ForEach(expenseHandler.expenses, id: \.self) { expense in
+                ForEach(expenseHandler.expenses) { expense in
                     BarMark(
                         x: .value("Article", expense.name),
                         y: .value("Price", expense.price)
@@ -31,7 +31,7 @@ struct HomePageView: View {
                 }
             }
             List {
-                ForEach(expenseHandler.expenses, id: \.self) { expense in
+                ForEach(expenseHandler.expenses) { expense in
                     Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
                 }
             }
