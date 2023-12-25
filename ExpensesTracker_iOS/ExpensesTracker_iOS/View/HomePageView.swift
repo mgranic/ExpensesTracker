@@ -10,6 +10,7 @@ import Charts
 
 struct HomePageView: View {
     @State var showCreateExpenseSheet: Bool = false
+    @State var showEditExpenseSheet: Bool = false
     @StateObject var expenseHandler: ExpenseHandler = ExpenseHandler()
     
     var body: some View {
@@ -35,7 +36,15 @@ struct HomePageView: View {
                 List {
                     ForEach(expenseHandler.expenses) { expense in
                         Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
+                            .onTapGesture {
+                                expenseHandler.selectedExpense = expense
+                                print("****** \(expenseHandler.selectedExpense!.name) *****")
+                                //showCreateExpenseSheet.toggle()
+                            }
                     }
+                }
+                .sheet(item: $expenseHandler.selectedExpense) { expense in
+                    EditExpenseView(isPresentSheet:$showCreateExpenseSheet, name: expense.name, price: expense.price, category: expense.category, expenseHandler: expenseHandler)
                 }
             }
             .toolbar {

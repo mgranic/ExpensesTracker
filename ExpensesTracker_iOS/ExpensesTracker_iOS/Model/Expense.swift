@@ -8,7 +8,8 @@
 import Foundation
 
 struct Expense: Identifiable {
-    var id: Int
+    var id = UUID()
+    var dbId: Int
     var price: Double
     var name: String
     var category: Category
@@ -16,15 +17,15 @@ struct Expense: Identifiable {
     
     
     static var expenses: [Expense] = [
-        Expense(id: Int.random(in: 1..<1000), price: 1.2, name: "Kava", category: Category.caffe),
-        Expense(id: Int.random(in: 1..<1000), price: 2.3, name: "Kava", category: Category.caffe),
-        Expense(id: Int.random(in: 1..<1000), price: 1.4, name: "Kava", category: Category.caffe),
-        Expense(id: Int.random(in: 1..<1000), price: 1.5, name: "Sok", category: Category.caffe),
-        Expense(id: Int.random(in: 1..<1000), price: 1.6, name: "Sok", category: Category.caffe),
-        Expense(id: Int.random(in: 1..<1000), price: 50, name: "Meso", category: Category.food),
-        Expense(id: Int.random(in: 1..<1000), price: 90, name: "Gorivo", category: Category.transportation),
-        Expense(id: Int.random(in: 1..<1000), price: 300, name: "Registracija", category: Category.transportation),
-        Expense(id: Int.random(in: 1..<1000), price: 1000.0, name: "Kredit", category: Category.housing),]
+        Expense(dbId: Int.random(in: 1..<1000), price: 1.2, name: "Kava", category: Category.caffe),
+        Expense(dbId: Int.random(in: 1..<1000), price: 2.3, name: "Kava", category: Category.caffe),
+        Expense(dbId: Int.random(in: 1..<1000), price: 1.4, name: "Kava", category: Category.caffe),
+        Expense(dbId: Int.random(in: 1..<1000), price: 1.5, name: "Sok", category: Category.caffe),
+        Expense(dbId: Int.random(in: 1..<1000), price: 1.6, name: "Sok", category: Category.caffe),
+        Expense(dbId: Int.random(in: 1..<1000), price: 50, name: "Meso", category: Category.food),
+        Expense(dbId: Int.random(in: 1..<1000), price: 90, name: "Gorivo", category: Category.transportation),
+        Expense(dbId: Int.random(in: 1..<1000), price: 300, name: "Registracija", category: Category.transportation),
+        Expense(dbId: Int.random(in: 1..<1000), price: 1000.0, name: "Kredit", category: Category.housing),]
 }
 
 enum Category: String, CaseIterable {

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		20B5AA222B36A4140083A341 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B5AA212B36A4140083A341 /* AddExpenseView.swift */; };
+		20C00D7C2B39C3B800DE0B6F /* EditExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */; };
 		20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */; };
 		20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEB9E2B35F51D00B63006 /* HomePageView.swift */; };
 		20DEEBA12B35F51F00B63006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20DEEBA02B35F51F00B63006 /* Assets.xcassets */; };
@@ -38,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		20B5AA212B36A4140083A341 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
+		20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseView.swift; sourceTree = "<group>"; };
 		20DEEB992B35F51D00B63006 /* ExpensesTracker_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpensesTracker_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTracker_iOSApp.swift; sourceTree = "<group>"; };
 		20DEEB9E2B35F51D00B63006 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 			children = (
 				20DEEB9E2B35F51D00B63006 /* HomePageView.swift */,
 				20B5AA212B36A4140083A341 /* AddExpenseView.swift */,
+				20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				20B5AA222B36A4140083A341 /* AddExpenseView.swift in Sources */,
 				20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */,
 				20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */,
+				20C00D7C2B39C3B800DE0B6F /* EditExpenseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

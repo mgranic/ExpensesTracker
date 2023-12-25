@@ -10,20 +10,46 @@ import Foundation
 public class ExpenseHandler: ObservableObject {
     
     @Published var expenses: [Expense] = [] // list of expenses shown to the user
+    @Published var selectedExpense: Expense?
     
     // add expense to the list of expenses shown to the user
     func updateListOfExpenses(name: String, price: Double, category: Category) {
-        self.expenses.append(Expense(id: Int.random(in: 1..<1000), price: price, name: name, category: category))
+        self.expenses.append(Expense(dbId: Int.random(in: 1..<1000), price: price, name: name, category: category))
     }
     
     // create expense and update list of expenses shown to the user
     func createExpense(name: String, price: Double, category: Category) {
-        Expense.expenses.append(Expense(id: Int.random(in: 1..<1000), price: price, name: name, category: category))
+        Expense.expenses.append(Expense(dbId: Int.random(in: 1..<1000), price: price, name: name, category: category))
         updateListOfExpenses(name: name, price: price, category: category)
     }
     
     // get all expenses from database
     func getExpenses() {
         expenses = Expense.expenses.map { $0 }
+    }
+    
+    // edit expense with dbId = id with new values provided in function parameters
+    func editExpense(id: Int, name: String, price: Double, category: Category) {
+        for i in 0...(Expense.expenses.count - 1) {
+            if (Expense.expenses[i].dbId == id) {
+                Expense.expenses[i].name = name
+                Expense.expenses[i].price = price
+                Expense.expenses[i].category = category
+            }
+        }
+        // TODO: this is just temporary until database is connected. Update array rendered to user
+        getExpenses()
+    }
+    
+    // edit expense with dbId = id with new values provided in function parameters
+    func deleteExpense(id: Int) {
+        for i in 0...(Expense.expenses.count - 1) {
+            if (Expense.expenses[i].dbId == id) {
+                Expense.expenses.remove(at: i)
+                break
+            }
+        }
+        // TODO: this is just temporary until database is connected. Update array rendered to user
+        getExpenses()
     }
 }
