@@ -29,12 +29,13 @@ public class ExpenseHandler: ObservableObject {
     }
     
     // edit expense with dbId = id with new values provided in function parameters
-    func editExpense(id: Int, name: String, price: Double, category: Category) {
+    func editExpense(id: Int, name: String, price: Double, category: Category, timestamp: Date) {
         for i in 0...(Expense.expenses.count - 1) {
             if (Expense.expenses[i].dbId == id) {
                 Expense.expenses[i].name = name
                 Expense.expenses[i].price = price
                 Expense.expenses[i].category = category
+                Expense.expenses[i].timestamp = timestamp
             }
         }
         // TODO: this is just temporary until database is connected. Update array rendered to user

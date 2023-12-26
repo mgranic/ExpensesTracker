@@ -16,6 +16,7 @@ struct EditExpenseView: View {
     @State var name: String = ""
     @State var price: Double?
     @State var category: Category = Category.none
+    @State var date: Date = Date()
     @StateObject var expenseHandler: ExpenseHandler
 
     var body: some View {
@@ -38,6 +39,11 @@ struct EditExpenseView: View {
                             }
                         }
                     }
+                    DatePicker (
+                        "Date",
+                        selection: $date,
+                        displayedComponents: [.date]
+                    )
                 }
                 
                 Section {
@@ -46,7 +52,7 @@ struct EditExpenseView: View {
                             Button("Submit") {
                                 
                                 if let dbId = expenseHandler.selectedExpense?.dbId {
-                                    expenseHandler.editExpense(id: dbId, name: name, price: price!, category: category)
+                                    expenseHandler.editExpense(id: dbId, name: name, price: price!, category: category, timestamp: date)
                                 }
                                 
                                 //expenseHandler.editExpense(id: expenseHandler.selectedExpense?.dbId!, name: name, price: price!, category: category)

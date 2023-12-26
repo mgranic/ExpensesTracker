@@ -44,7 +44,7 @@ struct HomePageView: View {
                     }
                 }
                 .sheet(item: $expenseHandler.selectedExpense) { expense in
-                    EditExpenseView(isPresentSheet:$showCreateExpenseSheet, name: expense.name, price: expense.price, category: expense.category, expenseHandler: expenseHandler)
+                    EditExpenseView(isPresentSheet:$showCreateExpenseSheet, name: expense.name, price: expense.price, category: expense.category, date: expense.timestamp, expenseHandler: expenseHandler)
                 }
             }
             .toolbar {
