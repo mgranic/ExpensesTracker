@@ -14,6 +14,7 @@ struct AddExpenseView: View {
     @State var name = ""
     @State var price: Double?
     @State var category: Category = Category.none
+    @State var date = Date()
     @StateObject var expenseHandler: ExpenseHandler
 
     var body: some View {
@@ -36,13 +37,18 @@ struct AddExpenseView: View {
                             }
                         }
                     }
+                    DatePicker (
+                        "Date",
+                        selection: $date,
+                        displayedComponents: [.date]
+                    )
                 }
                 
                 Section {
                     HStack {
                         Section {
                             Button("Submit") {
-                                expenseHandler.createExpense(name: name, price: price!, category: category)
+                                expenseHandler.createExpense(name: name, price: price!, category: category, date: date)
                                 isPresentSheet = false
                             }
                             .buttonStyle(.bordered)

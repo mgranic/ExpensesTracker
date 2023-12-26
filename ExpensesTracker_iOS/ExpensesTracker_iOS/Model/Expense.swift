@@ -13,19 +13,29 @@ struct Expense: Identifiable {
     var price: Double
     var name: String
     var category: Category
+    var timestamp: Date
+    
+    init(id: UUID = UUID(), dbId: Int, price: Double, name: String, category: Category, timestamp: Date) {
+        self.id = id
+        self.dbId = dbId
+        self.price = price
+        self.name = name
+        self.category = category
+        self.timestamp = timestamp
+    }
     
     
     
     static var expenses: [Expense] = [
-        Expense(dbId: Int.random(in: 1..<1000), price: 1.2, name: "Kava", category: Category.caffe),
-        Expense(dbId: Int.random(in: 1..<1000), price: 2.3, name: "Kava", category: Category.caffe),
-        Expense(dbId: Int.random(in: 1..<1000), price: 1.4, name: "Kava", category: Category.caffe),
-        Expense(dbId: Int.random(in: 1..<1000), price: 1.5, name: "Sok", category: Category.caffe),
-        Expense(dbId: Int.random(in: 1..<1000), price: 1.6, name: "Sok", category: Category.caffe),
-        Expense(dbId: Int.random(in: 1..<1000), price: 50, name: "Meso", category: Category.food),
-        Expense(dbId: Int.random(in: 1..<1000), price: 90, name: "Gorivo", category: Category.transportation),
-        Expense(dbId: Int.random(in: 1..<1000), price: 300, name: "Registracija", category: Category.transportation),
-        Expense(dbId: Int.random(in: 1..<1000), price: 1000.0, name: "Kredit", category: Category.housing),]
+        Expense(dbId: Int.random(in: 1..<1000), price: 500.0, name: "Kredit", category: Category.housing, timestamp: Date()),
+        Expense(dbId: Int.random(in: 1..<1000), price: 1.2, name: "Kava", category: Category.caffe, timestamp: Date()),
+        Expense(dbId: Int.random(in: 1..<1000), price: 2.3, name: "Kava", category: Category.caffe, timestamp: Date()),
+        Expense(dbId: Int.random(in: 1..<1000), price: 1.4, name: "Kava", category: Category.caffe, timestamp: Date()),
+        Expense(dbId: Int.random(in: 1..<1000), price: 1.5, name: "Sok", category: Category.caffe, timestamp: Date()),
+        Expense(dbId: Int.random(in: 1..<1000), price: 1.6, name: "Sok", category: Category.caffe, timestamp: Date()),
+        Expense(dbId: Int.random(in: 1..<1000), price: 50, name: "Meso", category: Category.food, timestamp: Date()),
+        Expense(dbId: Int.random(in: 1..<1000), price: 90, name: "Gorivo", category: Category.transportation, timestamp: Date()),
+        Expense(dbId: Int.random(in: 1..<1000), price: 200, name: "Registracija", category: Category.transportation, timestamp: Date())]
 }
 
 enum Category: String, CaseIterable {

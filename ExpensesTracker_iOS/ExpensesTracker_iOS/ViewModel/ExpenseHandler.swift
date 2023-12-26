@@ -14,12 +14,12 @@ public class ExpenseHandler: ObservableObject {
     
     // add expense to the list of expenses shown to the user
     func updateListOfExpenses(name: String, price: Double, category: Category) {
-        self.expenses.append(Expense(dbId: Int.random(in: 1..<1000), price: price, name: name, category: category))
+        self.expenses.append(Expense(dbId: Int.random(in: 1..<1000), price: price, name: name, category: category, timestamp: Date()))
     }
     
     // create expense and update list of expenses shown to the user
-    func createExpense(name: String, price: Double, category: Category) {
-        Expense.expenses.append(Expense(dbId: Int.random(in: 1..<1000), price: price, name: name, category: category))
+    func createExpense(name: String, price: Double, category: Category, date: Date) {
+        Expense.expenses.append(Expense(dbId: Int.random(in: 1..<1000), price: price, name: name, category: category, timestamp: date))
         updateListOfExpenses(name: name, price: price, category: category)
     }
     
