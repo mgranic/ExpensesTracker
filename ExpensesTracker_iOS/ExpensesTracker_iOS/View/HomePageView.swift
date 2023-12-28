@@ -33,6 +33,43 @@ struct HomePageView: View {
                         )
                     }
                 }
+                HStack {
+                    Button {
+                        expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .day)
+                    } label: {
+                        Text("1D")
+                    }
+                    Spacer()
+                    Button {
+                        expenseHandler.getExpensesFromDate(dateFrom: 7, dateCalcMethod: .day)
+                    } label: {
+                        Text("1W")
+                    }
+                    Spacer()
+                    Button {
+                        expenseHandler.getExpensesFromDate(dateFrom: 30, dateCalcMethod: .month)
+                    } label: {
+                        Text("1M")
+                    }
+                    Spacer()
+                    Button {
+                        expenseHandler.getExpensesFromDate(dateFrom: 3, dateCalcMethod: .month)
+                    } label: {
+                        Text("3M")
+                    }
+                    Spacer()
+                    Button {
+                        expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .year)
+                    } label: {
+                        Text("1Y")
+                    }
+                    Spacer()
+                    Button {
+                        expenseHandler.getExpensesFromDate(dateFrom: 0, dateCalcMethod: .max)
+                    } label: {
+                        Text("MAX")
+                    }
+                }
                 List {
                     ForEach(expenseHandler.expenses) { expense in
                         Text("\(expense.name) - \(expense.price, specifier: "%.2f")")

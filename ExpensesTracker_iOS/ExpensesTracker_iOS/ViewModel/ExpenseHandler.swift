@@ -12,6 +12,13 @@ public class ExpenseHandler: ObservableObject {
     @Published var expenses: [Expense] = [] // list of expenses shown to the user
     @Published var selectedExpense: Expense?
     
+    enum DateCalculationMethod: Int {
+        case day
+        case month
+        case year
+        case max
+    }
+    
     // add expense to the list of expenses shown to the user
     func updateListOfExpenses(name: String, price: Double, category: Category) {
         self.expenses.append(Expense(dbId: Int.random(in: 1..<1000), price: price, name: name, category: category, timestamp: Date()))
@@ -38,7 +45,7 @@ public class ExpenseHandler: ObservableObject {
                 Expense.expenses[i].timestamp = timestamp
             }
         }
-        // TODO: this is just temporary until database is connected. Update array rendered to user
+        // Update array rendered to user
         getExpenses()
     }
     
@@ -50,7 +57,43 @@ public class ExpenseHandler: ObservableObject {
                 break
             }
         }
-        // TODO: this is just temporary until database is connected. Update array rendered to user
+        // Update array rendered to user
         getExpenses()
+    }
+    
+    // get all expenses from the date specified in fromDate parameter
+    func getExpensesFromDate(dateFrom: Int, dateCalcMethod: DateCalculationMethod) {
+        // Reset array rendered to user
+        getExpenses()
+        
+        // if 0 means get all expenses for user
+        if (dateCalcMethod == DateCalculationMethod.max) {
+            return
+        }
+        var earlyDate: Date?
+        var removeIndexes: [Int] = []
+        //let earlyDate = Calendar.current.date(byAdding: .day, value: -dateFrom, to: Date())
+        
+        switch dateCalcMethod {
+            case .day:
+                earlyDate = Calendar.current.date(byAdding: .day, value: -dateFrom, to: Date())
+            case .month:
+                earlyDate = Calendar.current.date(byAdding: .month, value: -dateFrom, to: Date())
+            case .year:
+                fallthrough
+            default:
+                earlyDate = Calendar.current.date(byAdding: .year, value: -dateFrom, to: Date())
+        }
+        
+        for i in 0...(expenses.count - 1) {
+            if (expenses[i].timestamp < earlyDate!) {
+                removeIndexes.append(i)
+            }
+        }
+        
+        expenses = expenses
+            .enumerated()
+            .filter { !removeIndexes.contains($0.offset) }
+            .map { $0.element }
     }
 }
