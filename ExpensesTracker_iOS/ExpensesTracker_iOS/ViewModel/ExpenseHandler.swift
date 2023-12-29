@@ -21,12 +21,12 @@ public class ExpenseHandler: ObservableObject {
     }
     
     // add expense to the list of expenses shown to the user
-    func updateListOfExpenses(name: String, price: Double, category: Category) {
+    func updateListOfExpenses(name: String, price: Double, category: String) {
         self.expenses.append(Expense(price: price, name: name, category: category, timestamp: Date()))
     }
     
     // create expense and update list of expenses shown to the user
-    func createExpense(name: String, price: Double, category: Category, date: Date) {
+    func createExpense(name: String, price: Double, category: String, date: Date) {
         Expense.expenses.append(Expense(price: price, name: name, category: category, timestamp: date))
         updateListOfExpenses(name: name, price: price, category: category)
     }
@@ -37,7 +37,7 @@ public class ExpenseHandler: ObservableObject {
     }
     
     // edit expense with dbId = id with new values provided in function parameters
-    func editExpense(id: UUID, name: String, price: Double, category: Category, timestamp: Date) {
+    func editExpense(id: UUID, name: String, price: Double, category: String, timestamp: Date) {
         for i in 0...(Expense.expenses.count - 1) {
             if (Expense.expenses[i].id == id) {
                 Expense.expenses[i].name = name
@@ -63,16 +63,18 @@ public class ExpenseHandler: ObservableObject {
     }
     
     // get all expenses from the date specified in fromDate parameter
-    func getExpensesFromDate(dateFrom: Int, dateCalcMethod: DateCalculationMethod) {
-        // Reset array rendered to user
-        getExpenses()
+    func getExpensesFromDate(dateFrom: Int, dateCalcMethod: DateCalculationMethod) -> Date? {
+        //// Reset array rendered to user
+        //getExpenses()
+        
+        var earlyDate: Date? = nil
         
         // if max show all expenses, filter nothing
         if (dateCalcMethod == DateCalculationMethod.max) {
-            return
+            return earlyDate
         }
-        var earlyDate: Date?
-        var removeIndexes: [Int] = []
+        
+        //var removeIndexes: [Int] = []
         
         switch dateCalcMethod {
             case .day:
@@ -85,17 +87,19 @@ public class ExpenseHandler: ObservableObject {
                 earlyDate = Calendar.current.date(byAdding: .year, value: -dateFrom, to: Date())
         }
         
-        // store indexes of all expenses that do not pass the date filter, these Expenses will be not be shown to user
-        for i in 0...(expenses.count - 1) {
-            if (expenses[i].timestamp < earlyDate!) {
-                removeIndexes.append(i)
-            }
-        }
+        return earlyDate
         
-        // remove expenses that are not shown to user
-        expenses = expenses
-            .enumerated()
-            .filter { !removeIndexes.contains($0.offset) }
-            .map { $0.element }
+        //// store indexes of all expenses that do not pass the date filter, these Expenses will be not be shown to user
+        //for i in 0...(expenses.count - 1) {
+        //    if (expenses[i].timestamp < earlyDate!) {
+        //        removeIndexes.append(i)
+        //    }
+        //}
+        //
+        //// remove expenses that are not shown to user
+        //expenses = expenses
+        //    .enumerated()
+        //    .filter { !removeIndexes.contains($0.offset) }
+        //    .map { $0.element }
     }
 }

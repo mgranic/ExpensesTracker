@@ -13,7 +13,7 @@ struct AddExpenseView: View {
     @Binding var isPresentSheet: Bool
     @State var name = ""
     @State var price: Double?
-    @State var category: Category = Category.none
+    @State var category: String = Category.none.rawValue
     @State var date = Date()
     @StateObject var expenseHandler: ExpenseHandler
 

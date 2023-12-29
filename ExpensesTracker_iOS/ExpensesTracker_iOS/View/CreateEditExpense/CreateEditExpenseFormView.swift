@@ -10,17 +10,18 @@ import SwiftUI
 struct CreateEditExpenseFormView: View {
     
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelCtx
     
     @Binding var isPresentSheet: Bool
     @Binding var name: String
     @Binding var price: Double?
-    @Binding var category: Category
+    @Binding var category: String
     @Binding var date: Date
     @StateObject var expenseHandler: ExpenseHandler
     private var isEditView: Bool
     
     // default initializer
-    init(isPresent: Binding<Bool>, name: Binding<String>, price: Binding<Double?>, category: Binding<Category>, date: Binding<Date>, expenseHandler: StateObject<ExpenseHandler>, isEdit: Bool) {
+    init(isPresent: Binding<Bool>, name: Binding<String>, price: Binding<Double?>, category: Binding<String>, date: Binding<Date>, expenseHandler: StateObject<ExpenseHandler>, isEdit: Bool) {
         self._isPresentSheet = isPresent
         self._expenseHandler = expenseHandler
         self._name = name
@@ -31,12 +32,12 @@ struct CreateEditExpenseFormView: View {
     }
     
     // edit expense initializer
-    init(name: Binding<String>, price: Binding<Double?>, category: Binding<Category>, date: Binding<Date>, expenseHandler: StateObject<ExpenseHandler>) {
+    init(name: Binding<String>, price: Binding<Double?>, category: Binding<String>, date: Binding<Date>, expenseHandler: StateObject<ExpenseHandler>) {
         self.init(isPresent: .constant(true), name: name, price: price, category: category, date: date, expenseHandler: expenseHandler, isEdit: true)
     }
     
     // create expense initializer
-    init(isPresent: Binding<Bool>, name: Binding<String>, price: Binding<Double?>, category: Binding<Category>, date: Binding<Date>, expenseHandler: StateObject<ExpenseHandler>) {
+    init(isPresent: Binding<Bool>, name: Binding<String>, price: Binding<Double?>, category: Binding<String>, date: Binding<Date>, expenseHandler: StateObject<ExpenseHandler>) {
         self.init(isPresent: isPresent, name: name, price: price, category: category, date: date, expenseHandler: expenseHandler, isEdit: false)
     }
     
@@ -71,12 +72,17 @@ struct CreateEditExpenseFormView: View {
                     Section {
                         Button("Submit") {
                             if (isEditView) {
-                                if let dbId = expenseHandler.selectedExpense?.id {
-                                    expenseHandler.editExpense(id: dbId, name: name, price: price!, category: category, timestamp: date)
-                                }
+                                //if let dbId = expenseHandler.selectedExpense?.id {
+                                //    expenseHandler.editExpense(id: dbId, name: name, price: price!, category: category, timestamp: date)
+                                //
+                                //}
+                                expenseHandler.selectedExpense!.name = name
+                                expenseHandler.selectedExpense!.price = price!
+                                expenseHandler.selectedExpense!.timestamp = date
                                 dismiss()
                             } else {
-                                expenseHandler.createExpense(name: name, price: price!, category: category, date: date)
+                                //expenseHandler.createExpense(name: name, price: price!, category: category, date: date)
+                                modelCtx.insert(Expense(price: price!, name: name, category: category, timestamp: date))
                                 isPresentSheet = false
                             }
                         }
@@ -84,7 +90,7 @@ struct CreateEditExpenseFormView: View {
                         .controlSize(.large)
                         .buttonBorderShape(.capsule)
                     }
-                    .disabled(self.name.isEmpty || (self.category == Category.none) || (self.price == nil))
+                    .disabled(self.name.isEmpty || (self.category == Category.none.rawValue) || (self.price == nil))
                     Button("Cancel") {
                         if (isEditView) {
                             dismiss()

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct ExpensesTracker_iOSApp: App {
@@ -13,5 +14,6 @@ struct ExpensesTracker_iOSApp: App {
         WindowGroup {
             HomePageView()
         }
+        .modelContainer(for: Expense.self)
     }
 }

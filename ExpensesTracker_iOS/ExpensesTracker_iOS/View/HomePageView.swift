@@ -7,10 +7,17 @@
 
 import SwiftUI
 import Charts
+import SwiftData
 
 struct HomePageView: View {
+    @Environment(\.modelContext) var modelCtx
+    @Query(sort: \Expense.timestamp) var expenses: [Expense]
+    
     @State var showCreateExpenseSheet: Bool = false
     @StateObject var expenseHandler: ExpenseHandler = ExpenseHandler()
+    
+    @State var date: Date? = nil
+    
     
     var body: some View {
         NavigationStack {
@@ -25,52 +32,62 @@ struct HomePageView: View {
                     AddExpenseView(isPresentSheet:$showCreateExpenseSheet, expenseHandler: expenseHandler)
                 }
                 Chart {
-                    ForEach(expenseHandler.expenses) { expense in
-                        BarMark(
-                            x: .value("Article", expense.category.rawValue),
-                            y: .value("Price", expense.price)
-                        )
+                    ForEach(expenses) { expense in
+                        if let tempDate = date {
+                            if (expense.timestamp > tempDate) {
+                                BarMark(
+                                    x: .value("Article", expense.category),
+                                    y: .value("Price", expense.price)
+                                )
+                            }
+                        } else {
+                            BarMark(
+                                x: .value("Article", expense.category),
+                                y: .value("Price", expense.price)
+                            )
+                        }
+                        
                     }
                 }
                 HStack {
                     Button {
-                        expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .day)
+                        date = expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .day)
                     } label: {
                         Text("1D")
                     }
                     Spacer()
                     Button {
-                        expenseHandler.getExpensesFromDate(dateFrom: 7, dateCalcMethod: .day)
+                        date = expenseHandler.getExpensesFromDate(dateFrom: 7, dateCalcMethod: .day)
                     } label: {
                         Text("1W")
                     }
                     Spacer()
                     Button {
-                        expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .month)
+                        date = expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .month)
                     } label: {
                         Text("1M")
                     }
                     Spacer()
                     Button {
-                        expenseHandler.getExpensesFromDate(dateFrom: 3, dateCalcMethod: .month)
+                        date = expenseHandler.getExpensesFromDate(dateFrom: 3, dateCalcMethod: .month)
                     } label: {
                         Text("3M")
                     }
                     Spacer()
                     Button {
-                        expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .year)
+                        date = expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .year)
                     } label: {
                         Text("1Y")
                     }
                     Spacer()
                     Button {
-                        expenseHandler.getExpensesFromDate(dateFrom: 0, dateCalcMethod: .max)
+                        date = expenseHandler.getExpensesFromDate(dateFrom: 0, dateCalcMethod: .max)
                     } label: {
                         Text("MAX")
                     }
                 }
                 List {
-                    ForEach(expenseHandler.expenses) { expense in
+                    ForEach(expenses) { expense in
                         Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
                             .onTapGesture {
                                 expenseHandler.selectedExpense = expense

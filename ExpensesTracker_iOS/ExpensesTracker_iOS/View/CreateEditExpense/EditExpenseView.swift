@@ -10,10 +10,11 @@ import SwiftUI
 struct EditExpenseView: View {
     
     @Environment(\.dismiss) var dismiss
+    @Environment(\.modelContext) var modelCtx
 
     @State var name: String = ""
     @State var price: Double?
-    @State var category: Category = Category.none
+    @State var category: String = Category.none.rawValue
     @State var date: Date = Date()
     @StateObject var expenseHandler: ExpenseHandler
 
@@ -22,7 +23,8 @@ struct EditExpenseView: View {
             CreateEditExpenseFormView(name: $name, price: $price, category: $category, date: $date, expenseHandler: _expenseHandler)
             Button {
                 if let dbId = expenseHandler.selectedExpense?.id {
-                    expenseHandler.deleteExpense(id: dbId)
+                    //expenseHandler.deleteExpense(id: dbId)
+                    try! modelCtx.delete(model: Expense.self, where: #Predicate { expense in expense.id == dbId })
                 }
                 dismiss()
             } label: {
