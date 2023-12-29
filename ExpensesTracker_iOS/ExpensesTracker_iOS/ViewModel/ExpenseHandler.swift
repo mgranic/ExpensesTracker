@@ -9,9 +9,10 @@ import Foundation
 
 public class ExpenseHandler: ObservableObject {
     
-    @Published var expenses: [Expense] = [] // list of expenses shown to the user
-    @Published var selectedExpense: Expense?
+    @Published var expenses: [Expense] = []  // list of expenses shown to the user
+    @Published var selectedExpense: Expense? // used to pass expense that will be eddited to EditView
     
+    // Method for calculating date to filter expenses
     enum DateCalculationMethod: Int {
         case day
         case month
@@ -66,13 +67,12 @@ public class ExpenseHandler: ObservableObject {
         // Reset array rendered to user
         getExpenses()
         
-        // if 0 means get all expenses for user
+        // if max show all expenses, filter nothing
         if (dateCalcMethod == DateCalculationMethod.max) {
             return
         }
         var earlyDate: Date?
         var removeIndexes: [Int] = []
-        //let earlyDate = Calendar.current.date(byAdding: .day, value: -dateFrom, to: Date())
         
         switch dateCalcMethod {
             case .day:
@@ -85,12 +85,14 @@ public class ExpenseHandler: ObservableObject {
                 earlyDate = Calendar.current.date(byAdding: .year, value: -dateFrom, to: Date())
         }
         
+        // store indexes of all expenses that do not pass the date filter, these Expenses will be not be shown to user
         for i in 0...(expenses.count - 1) {
             if (expenses[i].timestamp < earlyDate!) {
                 removeIndexes.append(i)
             }
         }
         
+        // remove expenses that are not shown to user
         expenses = expenses
             .enumerated()
             .filter { !removeIndexes.contains($0.offset) }

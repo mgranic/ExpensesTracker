@@ -9,10 +9,8 @@ import SwiftUI
 
 struct EditExpenseView: View {
     
-    //@Environment(\.presentationMode) var presentationMode
     @Environment(\.dismiss) var dismiss
-    
-   // @Binding var isPresentSheet: Bool
+
     @State var name: String = ""
     @State var price: Double?
     @State var category: Category = Category.none

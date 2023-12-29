@@ -74,8 +74,6 @@ struct HomePageView: View {
                         Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
                             .onTapGesture {
                                 expenseHandler.selectedExpense = expense
-                                print("****** \(expenseHandler.selectedExpense!.name) *****")
-                                //showCreateExpenseSheet.toggle()
                             }
                     }
                 }
