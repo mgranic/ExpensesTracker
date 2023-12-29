@@ -47,7 +47,7 @@ struct HomePageView: View {
                     }
                     Spacer()
                     Button {
-                        expenseHandler.getExpensesFromDate(dateFrom: 30, dateCalcMethod: .month)
+                        expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .month)
                     } label: {
                         Text("1M")
                     }
