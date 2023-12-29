@@ -10,7 +10,6 @@ import Charts
 
 struct HomePageView: View {
     @State var showCreateExpenseSheet: Bool = false
-    @State var showEditExpenseSheet: Bool = false
     @StateObject var expenseHandler: ExpenseHandler = ExpenseHandler()
     
     var body: some View {
@@ -23,7 +22,7 @@ struct HomePageView: View {
                     Image(systemName: "plus.circle.fill")
                 }
                 .sheet(isPresented: $showCreateExpenseSheet) {
-                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, expenseHandler:expenseHandler)
+                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, expenseHandler: expenseHandler)
                 }
                 Chart {
                     ForEach(expenseHandler.expenses) { expense in
@@ -81,7 +80,7 @@ struct HomePageView: View {
                     }
                 }
                 .sheet(item: $expenseHandler.selectedExpense) { expense in
-                    EditExpenseView(isPresentSheet:$showCreateExpenseSheet, name: expense.name, price: expense.price, category: expense.category, date: expense.timestamp, expenseHandler: expenseHandler)
+                    EditExpenseView(name: expense.name, price: expense.price, category: expense.category, date: expense.timestamp, expenseHandler: expenseHandler)
                 }
             }
             .toolbar {
