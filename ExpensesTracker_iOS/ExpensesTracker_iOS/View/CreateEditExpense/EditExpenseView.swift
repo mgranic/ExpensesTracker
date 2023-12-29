@@ -21,7 +21,7 @@ struct EditExpenseView: View {
         VStack {
             CreateEditExpenseFormView(name: $name, price: $price, category: $category, date: $date, expenseHandler: _expenseHandler)
             Button {
-                if let dbId = expenseHandler.selectedExpense?.dbId {
+                if let dbId = expenseHandler.selectedExpense?.id {
                     expenseHandler.deleteExpense(id: dbId)
                 }
                 dismiss()

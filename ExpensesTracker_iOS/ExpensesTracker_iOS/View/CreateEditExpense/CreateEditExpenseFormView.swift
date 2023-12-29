@@ -71,7 +71,7 @@ struct CreateEditExpenseFormView: View {
                     Section {
                         Button("Submit") {
                             if (isEditView) {
-                                if let dbId = expenseHandler.selectedExpense?.dbId {
+                                if let dbId = expenseHandler.selectedExpense?.id {
                                     expenseHandler.editExpense(id: dbId, name: name, price: price!, category: category, timestamp: date)
                                 }
                                 dismiss()
