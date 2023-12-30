@@ -13,32 +13,32 @@ struct CreateEditExpenseFormView: View {
     @Environment(\.modelContext) var modelCtx
     
     @Binding var isPresentSheet: Bool
-    @Binding var name: String
-    @Binding var price: Double?
-    @Binding var category: String
-    @Binding var date: Date
-    @StateObject var expenseHandler: ExpenseHandler
+    @State var name: String = ""
+    @State var price: Double
+    @State var category: String
+    @State var date: Date
+    var selectedExpense: Expense
     private var isEditView: Bool
     
     // default initializer
-    init(isPresent: Binding<Bool>, name: Binding<String>, price: Binding<Double?>, category: Binding<String>, date: Binding<Date>, expenseHandler: StateObject<ExpenseHandler>, isEdit: Bool) {
+    init(isPresent: Binding<Bool>, isEdit: Bool, selectedExpense: Expense) {
         self._isPresentSheet = isPresent
-        self._expenseHandler = expenseHandler
-        self._name = name
-        self._price = price
-        self._category = category
-        self._date = date
+        self._name = State(initialValue: selectedExpense.name)
+        self._price = State(initialValue: selectedExpense.price)
+        self._category = State(initialValue: selectedExpense.category)
+        self._date = State(initialValue: selectedExpense.timestamp)
         self.isEditView = isEdit
+        self.selectedExpense = selectedExpense
     }
     
     // edit expense initializer
-    init(name: Binding<String>, price: Binding<Double?>, category: Binding<String>, date: Binding<Date>, expenseHandler: StateObject<ExpenseHandler>) {
-        self.init(isPresent: .constant(true), name: name, price: price, category: category, date: date, expenseHandler: expenseHandler, isEdit: true)
+    init(selectedExpense: Expense) {
+        self.init(isPresent: .constant(false), isEdit: true, selectedExpense: selectedExpense)
     }
     
     // create expense initializer
-    init(isPresent: Binding<Bool>, name: Binding<String>, price: Binding<Double?>, category: Binding<String>, date: Binding<Date>, expenseHandler: StateObject<ExpenseHandler>) {
-        self.init(isPresent: isPresent, name: name, price: price, category: category, date: date, expenseHandler: expenseHandler, isEdit: false)
+    init(isPresent: Binding<Bool>, selectedExpense: Expense) {
+        self.init(isPresent: isPresent, isEdit: false, selectedExpense: selectedExpense)
     }
     
     var body: some View {
@@ -72,17 +72,13 @@ struct CreateEditExpenseFormView: View {
                     Section {
                         Button("Submit") {
                             if (isEditView) {
-                                //if let dbId = expenseHandler.selectedExpense?.id {
-                                //    expenseHandler.editExpense(id: dbId, name: name, price: price!, category: category, timestamp: date)
-                                //
-                                //}
-                                expenseHandler.selectedExpense!.name = name
-                                expenseHandler.selectedExpense!.price = price!
-                                expenseHandler.selectedExpense!.timestamp = date
+                                selectedExpense.name = name
+                                selectedExpense.price = price
+                                selectedExpense.category = category
+                                selectedExpense.timestamp = date
                                 dismiss()
                             } else {
-                                //expenseHandler.createExpense(name: name, price: price!, category: category, date: date)
-                                modelCtx.insert(Expense(price: price!, name: name, category: category, timestamp: date))
+                                modelCtx.insert(Expense(price: price, name: name, category: category, timestamp: date))
                                 isPresentSheet = false
                             }
                         }
@@ -90,7 +86,7 @@ struct CreateEditExpenseFormView: View {
                         .controlSize(.large)
                         .buttonBorderShape(.capsule)
                     }
-                    .disabled(self.name.isEmpty || (self.category == Category.none.rawValue) || (self.price == nil))
+                    .disabled(self.name.isEmpty || (self.category == Category.none.rawValue))
                     Button("Cancel") {
                         if (isEditView) {
                             dismiss()

@@ -15,7 +15,6 @@ struct HomePageView: View {
     
     @State var showCreateExpenseSheet: Bool = false
     @StateObject var expenseHandler: ExpenseHandler = ExpenseHandler()
-    
     @State var date: Date? = nil
     
     
@@ -29,10 +28,11 @@ struct HomePageView: View {
                     Image(systemName: "plus.circle.fill")
                 }
                 .sheet(isPresented: $showCreateExpenseSheet) {
-                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, expenseHandler: expenseHandler)
+                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, selectedExpense: Expense(price: 0.0, name: "", category: Category.none.rawValue, timestamp: Date()))
                 }
                 Chart {
                     ForEach(expenses) { expense in
+                        // if date is not nil filter by date
                         if let tempDate = date {
                             if (expense.timestamp > tempDate) {
                                 BarMark(
@@ -41,6 +41,7 @@ struct HomePageView: View {
                                 )
                             }
                         } else {
+                            // if date is nill render all expenses
                             BarMark(
                                 x: .value("Article", expense.category),
                                 y: .value("Price", expense.price)
@@ -95,7 +96,7 @@ struct HomePageView: View {
                     }
                 }
                 .sheet(item: $expenseHandler.selectedExpense) { expense in
-                    EditExpenseView(name: expense.name, price: expense.price, category: expense.category, date: expense.timestamp, expenseHandler: expenseHandler)
+                    EditExpenseView(selectedExpense: expense, dbId: expense.id)
                 }
             }
             .toolbar {
@@ -109,9 +110,6 @@ struct HomePageView: View {
                 }
             }
         }
-        .onAppear(perform: {
-            expenseHandler.getExpenses()
-        })
         .padding()
     }
 }
