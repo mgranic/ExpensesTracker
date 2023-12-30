@@ -14,8 +14,8 @@ struct HomePageView: View {
     @Query(sort: \Expense.timestamp) var expenses: [Expense]
     
     @State var showCreateExpenseSheet: Bool = false
-    @StateObject var expenseHandler: ExpenseHandler = ExpenseHandler()
-    @State var date: Date? = nil
+    @State var selectedExpense: Expense?
+    @State var filteredExpenses: [Expense] = []
     
     
     var body: some View {
@@ -27,76 +27,67 @@ struct HomePageView: View {
                     Text("Add expense")
                     Image(systemName: "plus.circle.fill")
                 }
+                .onAppear(perform: {
+                    try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 0, dateCalcMethod: .max))
+                })
                 .sheet(isPresented: $showCreateExpenseSheet) {
-                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, selectedExpense: Expense(price: 0.0, name: "", category: Category.none.rawValue, timestamp: Date()))
+                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, filteredExpenses: $filteredExpenses, selectedExpense: Expense(price: 0.0, name: "", category: Category.none.rawValue, timestamp: Date()))
                 }
                 Chart {
-                    ForEach(expenses) { expense in
-                        // if date is not nil filter by date
-                        if let tempDate = date {
-                            if (expense.timestamp > tempDate) {
-                                BarMark(
-                                    x: .value("Article", expense.category),
-                                    y: .value("Price", expense.price)
-                                )
-                            }
-                        } else {
-                            // if date is nill render all expenses
-                            BarMark(
-                                x: .value("Article", expense.category),
-                                y: .value("Price", expense.price)
-                            )
-                        }
-                        
+                    ForEach(filteredExpenses) { expense in
+                        BarMark(
+                            x: .value("Article", expense.category),
+                            y: .value("Price", expense.price)
+                        )
                     }
                 }
                 HStack {
                     Button {
-                        date = expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .day)
+                        try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 1, dateCalcMethod: .day))
                     } label: {
                         Text("1D")
                     }
                     Spacer()
                     Button {
-                        date = expenseHandler.getExpensesFromDate(dateFrom: 7, dateCalcMethod: .day)
+                        try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 7, dateCalcMethod: .day))
                     } label: {
                         Text("1W")
                     }
                     Spacer()
                     Button {
-                        date = expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .month)
+                        try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 1, dateCalcMethod: .month))
                     } label: {
                         Text("1M")
                     }
                     Spacer()
                     Button {
-                        date = expenseHandler.getExpensesFromDate(dateFrom: 3, dateCalcMethod: .month)
+                        try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 3, dateCalcMethod: .month))
                     } label: {
                         Text("3M")
                     }
                     Spacer()
                     Button {
-                        date = expenseHandler.getExpensesFromDate(dateFrom: 1, dateCalcMethod: .year)
+                        try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 1, dateCalcMethod: .year))
                     } label: {
                         Text("1Y")
                     }
                     Spacer()
                     Button {
-                        date = expenseHandler.getExpensesFromDate(dateFrom: 0, dateCalcMethod: .max)
+                        try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 0, dateCalcMethod: .max))
                     } label: {
                         Text("MAX")
                     }
                 }
                 List {
-                    ForEach(expenses) { expense in
+                    ForEach(filteredExpenses) { expense in
                         Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
                             .onTapGesture {
-                                expenseHandler.selectedExpense = expense
+                                selectedExpense = expense
                             }
                     }
                 }
-                .sheet(item: $expenseHandler.selectedExpense) { expense in
-                    EditExpenseView(selectedExpense: expense, dbId: expense.id)
+                .sheet(item: $selectedExpense) { expense in
+                    EditExpenseView(selectedExpense: expense, dbId: expense.id, filteredExpenses: $filteredExpenses)
                 }
             }
             .toolbar {

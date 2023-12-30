@@ -17,11 +17,12 @@ struct CreateEditExpenseFormView: View {
     @State var price: Double
     @State var category: String
     @State var date: Date
+    @Binding var filteredExpenses: [Expense]
     var selectedExpense: Expense
     private var isEditView: Bool
     
     // default initializer
-    init(isPresent: Binding<Bool>, isEdit: Bool, selectedExpense: Expense) {
+    init(isPresent: Binding<Bool>, isEdit: Bool, selectedExpense: Expense, filteredExpenses: Binding<[Expense]>) {
         self._isPresentSheet = isPresent
         self._name = State(initialValue: selectedExpense.name)
         self._price = State(initialValue: selectedExpense.price)
@@ -29,16 +30,17 @@ struct CreateEditExpenseFormView: View {
         self._date = State(initialValue: selectedExpense.timestamp)
         self.isEditView = isEdit
         self.selectedExpense = selectedExpense
+        self._filteredExpenses = filteredExpenses
     }
     
     // edit expense initializer
-    init(selectedExpense: Expense) {
-        self.init(isPresent: .constant(false), isEdit: true, selectedExpense: selectedExpense)
+    init(selectedExpense: Expense, filteredExpenses: Binding<[Expense]>) {
+        self.init(isPresent: .constant(false), isEdit: true, selectedExpense: selectedExpense, filteredExpenses: filteredExpenses)
     }
     
     // create expense initializer
-    init(isPresent: Binding<Bool>, selectedExpense: Expense) {
-        self.init(isPresent: isPresent, isEdit: false, selectedExpense: selectedExpense)
+    init(isPresent: Binding<Bool>, selectedExpense: Expense, filteredExpenses: Binding<[Expense]>) {
+        self.init(isPresent: isPresent, isEdit: false, selectedExpense: selectedExpense, filteredExpenses: filteredExpenses)
     }
     
     var body: some View {
@@ -78,7 +80,9 @@ struct CreateEditExpenseFormView: View {
                                 selectedExpense.timestamp = date
                                 dismiss()
                             } else {
-                                modelCtx.insert(Expense(price: price, name: name, category: category, timestamp: date))
+                                let newExpense = Expense(price: price, name: name, category: category, timestamp: date)
+                                modelCtx.insert(newExpense)
+                                filteredExpenses.append(newExpense)
                                 isPresentSheet = false
                             }
                         }

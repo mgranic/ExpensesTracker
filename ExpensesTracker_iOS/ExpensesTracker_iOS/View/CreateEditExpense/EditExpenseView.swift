@@ -14,15 +14,14 @@ struct EditExpenseView: View {
 
     var selectedExpense: Expense
     var dbId: UUID
+    @Binding var filteredExpenses: [Expense]
 
     var body: some View {
         VStack {
-            CreateEditExpenseFormView(selectedExpense: selectedExpense)
+            CreateEditExpenseFormView(selectedExpense: selectedExpense, filteredExpenses: $filteredExpenses)
             Button {
-                //if let dbId = expenseHandler.selectedExpense?.id {
-                //    try! modelCtx.delete(model: Expense.self, where: #Predicate { expense in expense.id == dbId })
-                //}
                 try! modelCtx.delete(model: Expense.self, where: #Predicate { expense in expense.id == dbId })
+                filteredExpenses.removeAll(where: { expense in expense.id == dbId})
                 dismiss()
             } label: {
                 Text("DELETE EXPENSE")
