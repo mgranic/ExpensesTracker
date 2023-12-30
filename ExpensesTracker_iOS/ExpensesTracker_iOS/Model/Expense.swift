@@ -25,30 +25,39 @@ class Expense {
         self.timestamp = timestamp
     }
     
+    //static func searchByDate(
+    //    dateFrom: Int,
+    //    dateCalcMethod: DateCalculationMethod
+    //) -> Predicate<Expense> {
+    //
+    //    var earlyDate: Date? = nil
+    //
+    //
+    //    switch dateCalcMethod {
+    //        case .day:
+    //            earlyDate = Calendar.current.date(byAdding: .day, value: -dateFrom, to: Date())
+    //        case .month:
+    //            earlyDate = Calendar.current.date(byAdding: .month, value: -dateFrom, to: Date())
+    //        case .year:
+    //            earlyDate = Calendar.current.date(byAdding: .year, value: -dateFrom, to: Date())
+    //    case .max:
+    //        fallthrough
+    //        default:
+    //        // maximum date is 20 zears ago, basically making sure all of your expenses are included
+    //        earlyDate = Calendar.current.date(byAdding: .year, value: -20, to: Date())
+    //    }
+
+    //    return #Predicate<Expense> { expense in
+    //        expense.timestamp > earlyDate!
+    //    }
+    //}
+    
     static func searchByDate(
-        dateFrom: Int,
-        dateCalcMethod: DateCalculationMethod
+        dateFrom: Date
     ) -> Predicate<Expense> {
-        
-        var earlyDate: Date? = nil
-        
-        
-        switch dateCalcMethod {
-            case .day:
-                earlyDate = Calendar.current.date(byAdding: .day, value: -dateFrom, to: Date())
-            case .month:
-                earlyDate = Calendar.current.date(byAdding: .month, value: -dateFrom, to: Date())
-            case .year:
-                earlyDate = Calendar.current.date(byAdding: .year, value: -dateFrom, to: Date())
-        case .max:
-            fallthrough
-            default:
-            // maximum date is 20 zears ago, basically making sure all of your expenses are included
-            earlyDate = Calendar.current.date(byAdding: .year, value: -20, to: Date())
-        }
 
         return #Predicate<Expense> { expense in
-            expense.timestamp > earlyDate!
+            expense.timestamp > dateFrom
         }
     }
 }

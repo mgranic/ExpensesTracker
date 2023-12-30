@@ -10,6 +10,7 @@
 		20B5AA222B36A4140083A341 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B5AA212B36A4140083A341 /* AddExpenseView.swift */; };
 		20C000082B3EA93C00206CF1 /* CreateEditExpenseFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C000072B3EA93C00206CF1 /* CreateEditExpenseFormView.swift */; };
 		20C00D7C2B39C3B800DE0B6F /* EditExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */; };
+		20D7AD452B40925C00DB820D /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D7AD442B40925C00DB820D /* ExpenseManager.swift */; };
 		20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */; };
 		20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEB9E2B35F51D00B63006 /* HomePageView.swift */; };
 		20DEEBA12B35F51F00B63006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20DEEBA02B35F51F00B63006 /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 		20B5AA212B36A4140083A341 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		20C000072B3EA93C00206CF1 /* CreateEditExpenseFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditExpenseFormView.swift; sourceTree = "<group>"; };
 		20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseView.swift; sourceTree = "<group>"; };
+		20D7AD442B40925C00DB820D /* ExpenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpenseManager.swift; path = ExpensesTracker_iOS/ExpenseManager.swift; sourceTree = SOURCE_ROOT; };
 		20DEEB992B35F51D00B63006 /* ExpensesTracker_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpensesTracker_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTracker_iOSApp.swift; sourceTree = "<group>"; };
 		20DEEB9E2B35F51D00B63006 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 		20DEEBC72B35F5DF00B63006 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				20D7AD442B40925C00DB820D /* ExpenseManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				20DEEBCC2B35FAE600B63006 /* Expense.swift in Sources */,
+				20D7AD452B40925C00DB820D /* ExpenseManager.swift in Sources */,
 				20B5AA222B36A4140083A341 /* AddExpenseView.swift in Sources */,
 				20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */,
 				20C000082B3EA93C00206CF1 /* CreateEditExpenseFormView.swift in Sources */,
