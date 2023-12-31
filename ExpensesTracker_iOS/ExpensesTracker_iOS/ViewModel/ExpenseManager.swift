@@ -9,11 +9,11 @@ import Foundation
 
 
 class ExpenseManager: ObservableObject {
-    //private var allExpenses: [Expense] = []
-    @Published var filteredExpenses: [Expense] = []
-    @Published var selectedExpense: Expense?
+    @Published var filteredExpenses: [Expense] = []   // expenses that are show in list to user and from which graph is drawn
+    @Published var selectedExpense: Expense?          // expense selected for edditing
+    @Published var showFilterAlert: Bool = false      // if true, show alert for bad filtering
     
-    // Method for calculating date to filter expenses
+    // Enum that specifies method for calculating date to filter expenses
     enum DateCalculationMethod: Int {
         case day
         case month
@@ -21,17 +21,15 @@ class ExpenseManager: ObservableObject {
         case max
     }
     
-    //func updateExpenses(expenses: [Expense]) {
-    //    allExpenses = expenses.map{$0}
-    //    resetExpensesFilter()
-    //}
-    
+    // reset all filtered data (show all data to user)
     func resetExpensesFilter(expenses: [Expense]) {
         filteredExpenses = expenses.map{$0}
     }
     
+    // take list of expenses (expensesToFilter) and filter expense that are newer then the date specified by dateFrom
+    // and dateCalcMethod parameters
     func filterExpensesByDate(dateFrom: Int, dateCalcMethod: DateCalculationMethod, expensesToFilter: [Expense]) {
-        var earlyDate: Date? = nil
+        var earlyDate: Date?
         
         switch dateCalcMethod {
             case .day:
@@ -43,14 +41,14 @@ class ExpenseManager: ObservableObject {
         case .max:
             fallthrough
             default:
-            // maximum date is 20 zears ago, basically making sure all of your expenses are included
+            // maximum date is 20 years ago, basically making sure all of your expenses are included
             earlyDate = Calendar.current.date(byAdding: .year, value: -20, to: Date())
         }
         
         do {
             try filteredExpenses = expensesToFilter.filter(Expense.searchByDate(dateFrom: earlyDate!))
         } catch {
-            print("Unexpected error: \(error).")
+            showFilterAlert = true
         }
     }
 }

@@ -11,21 +11,32 @@ struct EditExpenseView: View {
     
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelCtx
-
+    
     var selectedExpense: Expense
     var dbId: UUID
     @Binding var filteredExpenses: [Expense]
-
+    @State var showAlert: Bool = false
+    
     var body: some View {
         VStack {
             CreateEditExpenseFormView(selectedExpense: selectedExpense, filteredExpenses: $filteredExpenses)
             Button {
-                try! modelCtx.delete(model: Expense.self, where: #Predicate { expense in expense.id == dbId })
-                filteredExpenses.removeAll(where: { expense in expense.id == dbId})
-                dismiss()
+                do {
+                    try modelCtx.delete(model: Expense.self, where: #Predicate { expense in expense.id == dbId })
+                    filteredExpenses.removeAll(where: { expense in expense.id == dbId})
+                    dismiss()
+                    showAlert = false
+                } catch {
+                    showAlert = true
+                }
+                
+                
             } label: {
                 Text("DELETE EXPENSE")
                     .foregroundColor(.red)
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Failed to delete expense: \(selectedExpense.name)"))
             }
         }
     }

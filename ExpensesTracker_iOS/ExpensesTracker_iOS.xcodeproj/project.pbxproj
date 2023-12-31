@@ -42,7 +42,7 @@
 		20B5AA212B36A4140083A341 /* AddExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		20C000072B3EA93C00206CF1 /* CreateEditExpenseFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditExpenseFormView.swift; sourceTree = "<group>"; };
 		20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseView.swift; sourceTree = "<group>"; };
-		20D7AD442B40925C00DB820D /* ExpenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpenseManager.swift; path = ExpensesTracker_iOS/ExpenseManager.swift; sourceTree = SOURCE_ROOT; };
+		20D7AD442B40925C00DB820D /* ExpenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpenseManager.swift; path = ExpensesTracker_iOS/VIewModel/ExpenseManager.swift; sourceTree = SOURCE_ROOT; };
 		20DEEB992B35F51D00B63006 /* ExpensesTracker_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpensesTracker_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTracker_iOSApp.swift; sourceTree = "<group>"; };
 		20DEEB9E2B35F51D00B63006 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -91,6 +91,14 @@
 			path = CreateEditExpense;
 			sourceTree = "<group>";
 		};
+		20DA83E62B4189AE00A631C1 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				20D7AD442B40925C00DB820D /* ExpenseManager.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		20DEEB902B35F51D00B63006 = {
 			isa = PBXGroup;
 			children = (
@@ -114,8 +122,8 @@
 		20DEEB9B2B35F51D00B63006 /* ExpensesTracker_iOS */ = {
 			isa = PBXGroup;
 			children = (
+				20DA83E62B4189AE00A631C1 /* ViewModel */,
 				20DEEBCA2B35FAD800B63006 /* Model */,
-				20DEEBC72B35F5DF00B63006 /* ViewModel */,
 				20DEEBC62B35F55D00B63006 /* View */,
 				20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */,
 				20DEEBA02B35F51F00B63006 /* Assets.xcassets */,
@@ -156,14 +164,6 @@
 				20DEEB9E2B35F51D00B63006 /* HomePageView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		20DEEBC72B35F5DF00B63006 /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				20D7AD442B40925C00DB820D /* ExpenseManager.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		20DEEBCA2B35FAD800B63006 /* Model */ = {

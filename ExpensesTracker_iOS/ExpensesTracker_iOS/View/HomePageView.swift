@@ -14,9 +14,6 @@ struct HomePageView: View {
     @Query(sort: \Expense.timestamp) var expenses: [Expense]
     
     @State var showCreateExpenseSheet: Bool = false
-    //@State var selectedExpense: Expense?
-    //@State var filteredExpenses: [Expense] = []
-    
     @StateObject var expenseManager: ExpenseManager = ExpenseManager()
     
     var body: some View {
@@ -30,10 +27,9 @@ struct HomePageView: View {
                 }
                 .onAppear(perform: {
                     expenseManager.resetExpensesFilter(expenses: expenses)
-                    //try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 0, dateCalcMethod: .max))
                 })
-                .sheet(isPresented: $showCreateExpenseSheet) {
-                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, filteredExpenses: $expenseManager.filteredExpenses, selectedExpense: Expense(price: 0.0, name: "", category: Category.none.rawValue, timestamp: Date()))
+                .sheet(isPresented: $showCreateExpenseSheet) {  // create expense sheet
+                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, filteredExpenses: $expenseManager.filteredExpenses)
                 }
                 Chart {
                     ForEach(expenseManager.filteredExpenses) { expense in
@@ -45,62 +41,59 @@ struct HomePageView: View {
                 }
                 HStack {
                     Button {
-                        //try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 1, dateCalcMethod: .day))
                         expenseManager.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .day, expensesToFilter: expenses)
                     } label: {
                         Text("1D")
                     }
                     Spacer()
                     Button {
-                        //try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 7, dateCalcMethod: .day))
                         expenseManager.filterExpensesByDate(dateFrom: 7, dateCalcMethod: .day, expensesToFilter: expenses)
                     } label: {
                         Text("1W")
                     }
                     Spacer()
                     Button {
-                        //try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 1, dateCalcMethod: .month))
                         expenseManager.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .month, expensesToFilter: expenses)
                     } label: {
                         Text("1M")
                     }
                     Spacer()
                     Button {
-                        //try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 3, dateCalcMethod: .month))
                         expenseManager.filterExpensesByDate(dateFrom: 4, dateCalcMethod: .month, expensesToFilter: expenses)
                     } label: {
                         Text("3M")
                     }
                     Spacer()
                     Button {
-                        //try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 1, dateCalcMethod: .year))
                         expenseManager.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .year, expensesToFilter: expenses)
                     } label: {
                         Text("1Y")
                     }
                     Spacer()
                     Button {
-                        //try! filteredExpenses = expenses.filter(Expense.searchByDate(dateFrom: 0, dateCalcMethod: .max))
                         expenseManager.resetExpensesFilter(expenses: expenses)
                     } label: {
                         Text("MAX")
                     }
                 }
+                .alert(isPresented: $expenseManager.showFilterAlert) {
+                        Alert(title: Text("Failed to filter out expenses"))
+                }
                 List {
                     ForEach(expenseManager.filteredExpenses) { expense in
                         Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
                             .onTapGesture {
+                                // store selected expense into selectedExpense so that it can be edited
                                 expenseManager.selectedExpense = expense
                             }
                     }
                 }
-                .sheet(item: $expenseManager.selectedExpense) { expense in
+                .sheet(item: $expenseManager.selectedExpense) { expense in // show edit expense sheet
                     EditExpenseView(selectedExpense: expense, dbId: expense.id, filteredExpenses: $expenseManager.filteredExpenses)
                 }
             }
             .toolbar {
                 Menu {
-                    // TODO: change Text into NavigationLink to proper Views
                     Text("Menu text 1")
                     Text("Menu text 2")
                 } label: {
