@@ -15,7 +15,7 @@ struct AddExpenseView: View {
 
     var body: some View {
         VStack {
-            CreateEditExpenseFormView(isPresent: $isPresentSheet, selectedExpense: Expense(price: 0.0, name: "", category: Category.none.rawValue, timestamp: Date()), filteredExpenses: $filteredExpenses)
+            CreateEditExpenseFormView(isPresent: $isPresentSheet, filteredExpenses: $filteredExpenses)
         }
     }
 }

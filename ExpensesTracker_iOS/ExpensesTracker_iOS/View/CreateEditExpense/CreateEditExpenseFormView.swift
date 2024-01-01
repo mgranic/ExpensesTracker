@@ -39,7 +39,7 @@ struct CreateEditExpenseFormView: View {
     }
     
     // create expense initializer
-    init(isPresent: Binding<Bool>, selectedExpense: Expense, filteredExpenses: Binding<[Expense]>) {
+    init(isPresent: Binding<Bool>, selectedExpense: Expense = Expense(price: 0.0, name: "", category: Category.none.rawValue, timestamp: Date()), filteredExpenses: Binding<[Expense]>) {
         self.init(isPresent: isPresent, isEdit: false, selectedExpense: selectedExpense, filteredExpenses: filteredExpenses)
     }
     
