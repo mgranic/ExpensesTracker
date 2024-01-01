@@ -94,8 +94,12 @@ struct HomePageView: View {
             }
             .toolbar {
                 Menu {
-                    Text("Menu text 1")
-                    Text("Menu text 2")
+                    NavigationLink(destination: ExpenseStatsView()) {
+                        Text("Expense Stats")
+                    }
+                    NavigationLink(destination: SettingsView()) {
+                        Text("Settings")
+                    }
                 } label: {
                     Label("Menu", systemImage: "ellipsis.circle")
                         .foregroundColor(.black)
