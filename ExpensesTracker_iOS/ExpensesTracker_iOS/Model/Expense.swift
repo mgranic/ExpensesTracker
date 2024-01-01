@@ -37,14 +37,6 @@ class Expense {
     }
 }
 
-// Method for calculating date to filter expenses
-enum DateCalculationMethod: Int {
-    case day
-    case month
-    case year
-    case max
-}
-
 enum Category: String, CaseIterable {
     case none
     case caffe
