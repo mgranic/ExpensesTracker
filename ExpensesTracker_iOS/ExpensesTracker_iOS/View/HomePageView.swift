@@ -10,7 +10,7 @@ import Charts
 import SwiftData
 
 struct HomePageView: View {
-    @Environment(\.modelContext) var modelCtx
+    //@Environment(\.modelContext) var modelCtx
     @Query(sort: \Expense.timestamp) var expenses: [Expense]
     
     @State var showCreateExpenseSheet: Bool = false
@@ -34,7 +34,7 @@ struct HomePageView: View {
                 Chart {
                     ForEach(expenseManager.filteredExpenses) { expense in
                         BarMark(
-                            x: .value("Article", expense.category),
+                            x: .value("Category", expense.category),
                             y: .value("Price", expense.price)
                         )
                     }
