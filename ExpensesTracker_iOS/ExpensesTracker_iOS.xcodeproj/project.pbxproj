@@ -13,6 +13,7 @@
 		20D7AD452B40925C00DB820D /* ExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D7AD442B40925C00DB820D /* ExpenseManager.swift */; };
 		20D864722B42DB480099FEA3 /* ExpenseStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D864712B42DB480099FEA3 /* ExpenseStatsView.swift */; };
 		20D864742B42DB740099FEA3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D864732B42DB740099FEA3 /* SettingsView.swift */; };
+		20D864762B42E8080099FEA3 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D864752B42E8080099FEA3 /* GraphView.swift */; };
 		20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */; };
 		20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEB9E2B35F51D00B63006 /* HomePageView.swift */; };
 		20DEEBA12B35F51F00B63006 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20DEEBA02B35F51F00B63006 /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		20D7AD442B40925C00DB820D /* ExpenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpenseManager.swift; path = ExpensesTracker_iOS/VIewModel/ExpenseManager.swift; sourceTree = SOURCE_ROOT; };
 		20D864712B42DB480099FEA3 /* ExpenseStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseStatsView.swift; sourceTree = "<group>"; };
 		20D864732B42DB740099FEA3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		20D864752B42E8080099FEA3 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		20DEEB992B35F51D00B63006 /* ExpensesTracker_iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExpensesTracker_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20DEEB9C2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTracker_iOSApp.swift; sourceTree = "<group>"; };
 		20DEEB9E2B35F51D00B63006 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 				20DEEB9E2B35F51D00B63006 /* HomePageView.swift */,
 				20D864712B42DB480099FEA3 /* ExpenseStatsView.swift */,
 				20D864732B42DB740099FEA3 /* SettingsView.swift */,
+				20D864752B42E8080099FEA3 /* GraphView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -315,6 +318,7 @@
 				20B5AA222B36A4140083A341 /* AddExpenseView.swift in Sources */,
 				20D864742B42DB740099FEA3 /* SettingsView.swift in Sources */,
 				20D864722B42DB480099FEA3 /* ExpenseStatsView.swift in Sources */,
+				20D864762B42E8080099FEA3 /* GraphView.swift in Sources */,
 				20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */,
 				20C000082B3EA93C00206CF1 /* CreateEditExpenseFormView.swift in Sources */,
 				20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */,

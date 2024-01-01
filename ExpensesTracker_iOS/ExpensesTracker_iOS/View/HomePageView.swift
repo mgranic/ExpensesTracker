@@ -10,7 +10,6 @@ import Charts
 import SwiftData
 
 struct HomePageView: View {
-    //@Environment(\.modelContext) var modelCtx
     @Query(sort: \Expense.timestamp) var expenses: [Expense]
     
     @State var showCreateExpenseSheet: Bool = false
@@ -31,54 +30,10 @@ struct HomePageView: View {
                 .sheet(isPresented: $showCreateExpenseSheet) {  // create expense sheet
                     AddExpenseView(isPresentSheet:$showCreateExpenseSheet, filteredExpenses: $expenseManager.filteredExpenses)
                 }
-                Chart {
-                    ForEach(expenseManager.filteredExpenses) { expense in
-                        BarMark(
-                            x: .value("Category", expense.category),
-                            y: .value("Price", expense.price)
-                        )
-                    }
-                }
-                HStack {
-                    Button {
-                        expenseManager.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .day, expensesToFilter: expenses)
-                    } label: {
-                        Text("1D")
-                    }
-                    Spacer()
-                    Button {
-                        expenseManager.filterExpensesByDate(dateFrom: 7, dateCalcMethod: .day, expensesToFilter: expenses)
-                    } label: {
-                        Text("1W")
-                    }
-                    Spacer()
-                    Button {
-                        expenseManager.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .month, expensesToFilter: expenses)
-                    } label: {
-                        Text("1M")
-                    }
-                    Spacer()
-                    Button {
-                        expenseManager.filterExpensesByDate(dateFrom: 4, dateCalcMethod: .month, expensesToFilter: expenses)
-                    } label: {
-                        Text("3M")
-                    }
-                    Spacer()
-                    Button {
-                        expenseManager.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .year, expensesToFilter: expenses)
-                    } label: {
-                        Text("1Y")
-                    }
-                    Spacer()
-                    Button {
-                        expenseManager.resetExpensesFilter(expenses: expenses)
-                    } label: {
-                        Text("MAX")
-                    }
-                }
-                .alert(isPresented: $expenseManager.showFilterAlert) {
-                        Alert(title: Text("Failed to filter out expenses"))
-                }
+                // need to pass _expenseManager here because same filtered values are used to filter expenses list shown
+                // bellow the graph
+                GraphView(expenseManager: _expenseManager)
+                
                 List {
                     ForEach(expenseManager.filteredExpenses) { expense in
                         Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
