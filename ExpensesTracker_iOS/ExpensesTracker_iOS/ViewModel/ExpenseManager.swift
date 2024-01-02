@@ -51,4 +51,20 @@ class ExpenseManager: ObservableObject {
             showFilterAlert = true
         }
     }
+    
+    func totalPricePerCategory() -> [(String, Double)] {
+        var totalPrice: Dictionary<String, Double> = [:]
+        
+        // initialize total price dictionary
+        for category in Category.allCases {
+            totalPrice[category.rawValue] = 0.0
+        }
+        
+        // calculate total price
+        for expense in filteredExpenses {
+            totalPrice[expense.category] = (totalPrice[expense.category] ?? 0.0) + expense.price
+        }
+        
+        return totalPrice.flatMap{ ($0, $1) }
+    }
 }
