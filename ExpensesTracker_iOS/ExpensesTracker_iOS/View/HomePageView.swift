@@ -14,6 +14,7 @@ struct HomePageView: View {
     
     @State var showCreateExpenseSheet: Bool = false
     @StateObject var expenseManager: ExpenseManager = ExpenseManager()
+    @State var charType: ChartType = ChartType.bar
     
     var body: some View {
         NavigationStack {
@@ -26,13 +27,15 @@ struct HomePageView: View {
                 }
                 .onAppear(perform: {
                     expenseManager.resetExpensesFilter(expenses: expenses)
+                    var settingsManager = SettingManager()
+                    charType = settingsManager.getDefaultChart()
                 })
                 .sheet(isPresented: $showCreateExpenseSheet) {  // create expense sheet
                     AddExpenseView(isPresentSheet:$showCreateExpenseSheet, filteredExpenses: $expenseManager.filteredExpenses)
                 }
                 // need to pass _expenseManager here because same filtered values are used to filter expenses list shown
                 // bellow the graph
-                GraphView(expenseManager: _expenseManager)
+                GraphView(expenseManager: _expenseManager, chartType: charType)
                 
                 List {
                     ForEach(expenseManager.filteredExpenses) { expense in

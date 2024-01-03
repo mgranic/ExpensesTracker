@@ -22,6 +22,11 @@ struct ExpenseStatsView: View {
                         }
                     }
                 }
+                Button("Set default chart type") {
+                    var settingsManager = SettingManager()
+                    settingsManager.setDefaultChart(chartType: chartType)
+                }
+                .buttonStyle(.borderedProminent)
             }
             .scrollDisabled(true)
             .frame(maxHeight: UIScreen.main.bounds.height * 0.2)
