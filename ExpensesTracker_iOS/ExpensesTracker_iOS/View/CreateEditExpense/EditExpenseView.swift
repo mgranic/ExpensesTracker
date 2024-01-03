@@ -16,6 +16,7 @@ struct EditExpenseView: View {
     var dbId: UUID
     @Binding var filteredExpenses: [Expense]
     @State var showAlert: Bool = false
+    @ObservedObject var expenseManager: ExpenseManager
     
     var body: some View {
         VStack {
@@ -24,6 +25,7 @@ struct EditExpenseView: View {
                 do {
                     try modelCtx.delete(model: Expense.self, where: #Predicate { expense in expense.id == dbId })
                     filteredExpenses.removeAll(where: { expense in expense.id == dbId})
+                    expenseManager.updateTotalAmountOnDeleted(amount: selectedExpense.price, date: selectedExpense.timestamp)
                     dismiss()
                     showAlert = false
                 } catch {

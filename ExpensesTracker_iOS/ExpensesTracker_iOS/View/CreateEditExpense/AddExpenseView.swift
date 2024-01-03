@@ -12,10 +12,11 @@ struct AddExpenseView: View {
     
     @Binding var isPresentSheet: Bool
     @Binding var filteredExpenses: [Expense]
+    @ObservedObject var expenseManager: ExpenseManager
 
     var body: some View {
         VStack {
-            CreateEditExpenseFormView(isPresent: $isPresentSheet, filteredExpenses: $filteredExpenses)
+            CreateEditExpenseFormView(isPresent: $isPresentSheet, filteredExpenses: $filteredExpenses, expenseManager: _expenseManager)
         }
     }
 }
