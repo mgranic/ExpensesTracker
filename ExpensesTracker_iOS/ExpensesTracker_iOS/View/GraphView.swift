@@ -16,7 +16,7 @@ struct GraphView: View {
     
     @State var intervalPressed: [Bool] = [false, false, false, false, false, false]
     @State var lastButtonPressed: Int = 0
-    
+                                                    
     var chartType: ChartType
     
     // if filtered data has to affect parrent view, then ExpenseManager has to be passed from parrent view 
@@ -34,6 +34,7 @@ struct GraphView: View {
                             x: .value("Category", expense.category),
                             y: .value("Price", expense.price)
                         )
+                        .foregroundStyle(LinearGradient(gradient: Gradient(colors: [.red, .blue]), startPoint: .top, endPoint: .bottom))
                     }
                 } else {
                     // iterate total pricce per category

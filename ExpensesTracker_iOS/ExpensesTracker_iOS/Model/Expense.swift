@@ -47,5 +47,10 @@ enum Category: String, CaseIterable {
     case bills
     case travel
     case electronics
-    case gaming
+    case subscriptions
+    case kids
+    case hobby
+    case sports
+    case fun
+    case other
 }

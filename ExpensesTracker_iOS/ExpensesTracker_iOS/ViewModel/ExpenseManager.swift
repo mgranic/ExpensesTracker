@@ -52,6 +52,7 @@ class ExpenseManager: ObservableObject {
         }
     }
     
+    // calculate total money spent per category
     func totalPricePerCategory() -> [(String, Double)] {
         var totalPrice: Dictionary<String, Double> = [:]
         
