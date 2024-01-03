@@ -28,5 +28,18 @@ struct ExpenseStatsView: View {
             
             GraphView(chartType: chartType)
         }
+        .toolbar {
+            Menu {
+                NavigationLink(destination: HomePageView()) {
+                    Text("Home Page")
+                }
+                NavigationLink(destination: SettingsView()) {
+                    Text("Settings")
+                }
+            } label: {
+                Label("Menu", systemImage: "ellipsis.circle")
+                    .foregroundColor(.black)
+            }
+        }
     }
 }
