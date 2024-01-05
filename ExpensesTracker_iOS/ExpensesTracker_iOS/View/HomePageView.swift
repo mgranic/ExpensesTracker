@@ -35,7 +35,7 @@ struct HomePageView: View {
                     Image(systemName: "plus.circle.fill")
                 }
                 .sheet(isPresented: $showCreateExpenseSheet) {  // create expense sheet
-                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, filteredExpenses: $expenseManager.filteredExpenses, expenseManager: expenseManager)
+                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, expenseManager: expenseManager)
                 }
                 // need to pass _expenseManager here because same filtered values are used to filter expenses list shown
                 // bellow the graph
@@ -51,7 +51,7 @@ struct HomePageView: View {
                     }
                 }
                 .sheet(item: $expenseManager.selectedExpense) { expense in // show edit expense sheet
-                    EditExpenseView(selectedExpense: expense, dbId: expense.id, filteredExpenses: $expenseManager.filteredExpenses, expenseManager: expenseManager)
+                    EditExpenseView(dbId: expense.id, expenseManager: expenseManager)
                 }
             }
             .toolbar {

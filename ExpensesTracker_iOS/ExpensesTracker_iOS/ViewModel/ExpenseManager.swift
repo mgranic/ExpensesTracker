@@ -70,6 +70,39 @@ class ExpenseManager: ObservableObject {
         return totalPrice.flatMap{ ($0, $1) }
     }
     
+    func setTotalSpentOnEdit(oldAmount: Double, newAmount: Double, oldDate: Date, newDate: Date) {
+        let oldDateComponents = Calendar.current.dateComponents([.month, .year], from: oldDate)
+        let newDateComponents = Calendar.current.dateComponents([.month, .year], from: newDate)
+        let currentDateComponents = Calendar.current.dateComponents([.month, .year], from: Date())
+        
+        // if old expense is entered for prior month it wasn't used in total amount calculation
+        if ((oldDateComponents.month != currentDateComponents.month) ||
+            (oldDateComponents.year != currentDateComponents.year)) {
+            
+            // if new date is set to this month it should be included in total amount calculation
+            if ((newDateComponents.month == currentDateComponents.month) &&
+                (newDateComponents.year == currentDateComponents.year)) {
+                setTotalSpent(amount: newAmount, date: newDate)
+            }
+            return
+        }
+        
+        // if old expense is entered for this month, but is now changed to some prior month
+        if ((newDateComponents.month != currentDateComponents.month) ||
+            (newDateComponents.year != currentDateComponents.year)) {
+            
+            // deduce total amount like expense was deleted
+            setTotalSpent(amount: oldAmount * (-1), date: oldDate)
+            
+            return
+        }
+        
+        // if you reach this part of code it means old date and new date are both for this month and only amount was changed
+        // calculate in only difference between new value and old value into total amount
+        setTotalSpent(amount: newAmount - oldAmount, date: newDate)
+        
+    }
+    
     // save total spent amount to user defaults
     func setTotalSpent(amount: Double, date: Date) {
         
@@ -92,28 +125,13 @@ class ExpenseManager: ObservableObject {
         } else { // else do normal calculation
             getTotalSpent()
             totalMoneySpent = totalMoneySpent + amount
+            
+            // if we end up in negative teritory set 0
+            if totalMoneySpent < 0.0 {
+                totalMoneySpent = 0.0
+            }
         }
         
-        UserDefaults.standard.setValue(totalMoneySpent, forKey: "total_spent")
-    }
-    
-    // deduct expense when deleted
-    func updateTotalAmountOnDeleted(amount: Double, date: Date) {
-            
-        let dateComponenets = Calendar.current.dateComponents([.month, .year], from: date)
-        let currentDateComponents = Calendar.current.dateComponents([.month, .year], from: Date())
-        
-        // if expense is entered for prior month don't use it in calculation
-        if ((dateComponenets.month != currentDateComponents.month) ||
-            (dateComponenets.year != currentDateComponents.year)) {
-            return
-        }
-            
-        getTotalSpent()
-        totalMoneySpent = totalMoneySpent - amount
-        if totalMoneySpent < 0.0 {
-            totalMoneySpent = 0.0
-        }
         UserDefaults.standard.setValue(totalMoneySpent, forKey: "total_spent")
     }
     

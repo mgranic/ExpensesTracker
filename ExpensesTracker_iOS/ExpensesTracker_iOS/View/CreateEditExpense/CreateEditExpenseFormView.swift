@@ -17,32 +17,34 @@ struct CreateEditExpenseFormView: View {
     @State var price: Double
     @State var category: String
     @State var date: Date
-    @Binding var filteredExpenses: [Expense]
+    //@Binding var filteredExpenses: [Expense]
     @ObservedObject var expenseManager: ExpenseManager
-    var selectedExpense: Expense
+    //var selectedExpense: Expense
     private var isEditView: Bool
     
     // default initializer
-    init(isPresent: Binding<Bool>, isEdit: Bool, selectedExpense: Expense, filteredExpenses: Binding<[Expense]>, expenseManager: ObservedObject<ExpenseManager> = ObservedObject(initialValue: ExpenseManager())) {
+    init(isPresent: Binding<Bool>, isEdit: Bool, expenseManager: ObservedObject<ExpenseManager> = ObservedObject(initialValue: ExpenseManager())) {
         self._isPresentSheet = isPresent
+        // if this is new expense selectedExpense is nil
+        let selectedExpense = expenseManager.wrappedValue.selectedExpense ?? Expense(price: 0.0, name: "", category: Category.none.rawValue, timestamp: Date())
         self._name = State(initialValue: selectedExpense.name)
         self._price = State(initialValue: selectedExpense.price)
         self._category = State(initialValue: selectedExpense.category)
         self._date = State(initialValue: selectedExpense.timestamp)
         self.isEditView = isEdit
-        self.selectedExpense = selectedExpense
-        self._filteredExpenses = filteredExpenses
+        //self.selectedExpense = selectedExpense
+        //self._filteredExpenses = filteredExpenses
         self._expenseManager = expenseManager
     }
     
     // edit expense initializer
-    init(selectedExpense: Expense, filteredExpenses: Binding<[Expense]>) {
-        self.init(isPresent: .constant(false), isEdit: true, selectedExpense: selectedExpense, filteredExpenses: filteredExpenses)
+    init(expenseManager: ObservedObject<ExpenseManager>) {
+        self.init(isPresent: .constant(false), isEdit: true, expenseManager: expenseManager)
     }
     
     // create expense initializer
-    init(isPresent: Binding<Bool>, selectedExpense: Expense = Expense(price: 0.0, name: "", category: Category.none.rawValue, timestamp: Date()), filteredExpenses: Binding<[Expense]>, expenseManager: ObservedObject<ExpenseManager>) {
-        self.init(isPresent: isPresent, isEdit: false, selectedExpense: selectedExpense, filteredExpenses: filteredExpenses, expenseManager: expenseManager)
+    init(isPresent: Binding<Bool>, expenseManager: ObservedObject<ExpenseManager>) {
+        self.init(isPresent: isPresent, isEdit: false, expenseManager: expenseManager)
     }
     
     var body: some View {
@@ -75,16 +77,18 @@ struct CreateEditExpenseFormView: View {
                 HStack {
                     Section {
                         Button("Submit") {
-                            if (isEditView) {
-                                selectedExpense.name = name
-                                selectedExpense.price = price
-                                selectedExpense.category = category
-                                selectedExpense.timestamp = date
+                            if (isEditView) { // edit expense
+                                //expenseManager.setTotalSpent(amount: <#T##Double#>, date: Date)
+                                expenseManager.setTotalSpentOnEdit(oldAmount: expenseManager.selectedExpense!.price, newAmount: price, oldDate: expenseManager.selectedExpense!.timestamp, newDate: date)
+                                expenseManager.selectedExpense!.name = name
+                                expenseManager.selectedExpense!.price = price
+                                expenseManager.selectedExpense!.category = category
+                                expenseManager.selectedExpense!.timestamp = date
                                 dismiss()
-                            } else {
+                            } else { // add new expense
                                 let newExpense = Expense(price: price, name: name, category: category, timestamp: date)
                                 modelCtx.insert(newExpense)
-                                filteredExpenses.append(newExpense)
+                                expenseManager.filteredExpenses.append(newExpense)
                                 expenseManager.setTotalSpent(amount: newExpense.price, date: newExpense.timestamp)
                                 isPresentSheet = false
                             }

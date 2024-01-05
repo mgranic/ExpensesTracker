@@ -12,20 +12,18 @@ struct EditExpenseView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.modelContext) var modelCtx
     
-    var selectedExpense: Expense
     var dbId: UUID
-    @Binding var filteredExpenses: [Expense]
     @State var showAlert: Bool = false
     @ObservedObject var expenseManager: ExpenseManager
     
     var body: some View {
         VStack {
-            CreateEditExpenseFormView(selectedExpense: selectedExpense, filteredExpenses: $filteredExpenses)
+            CreateEditExpenseFormView(expenseManager: _expenseManager)
             Button {
                 do {
                     try modelCtx.delete(model: Expense.self, where: #Predicate { expense in expense.id == dbId })
-                    filteredExpenses.removeAll(where: { expense in expense.id == dbId})
-                    expenseManager.updateTotalAmountOnDeleted(amount: selectedExpense.price, date: selectedExpense.timestamp)
+                    expenseManager.filteredExpenses.removeAll(where: { expense in expense.id == dbId})
+                    expenseManager.setTotalSpent(amount: expenseManager.selectedExpense!.price * (-1), date: expenseManager.selectedExpense!.timestamp)
                     dismiss()
                     showAlert = false
                 } catch {
@@ -38,7 +36,7 @@ struct EditExpenseView: View {
                     .foregroundColor(.red)
             }
             .alert(isPresented: $showAlert) {
-                Alert(title: Text("Failed to delete expense: \(selectedExpense.name)"))
+                Alert(title: Text("Failed to delete expense: \(expenseManager.selectedExpense!.name)"))
             }
         }
     }
