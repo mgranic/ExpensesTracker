@@ -32,6 +32,7 @@ struct HomePageView: View {
                     showCreateExpenseSheet.toggle()
                 }) {
                     Text("Add expense")
+                        .font(.system(.title2, design: .rounded))
                     Image(systemName: "plus.circle.fill")
                 }
                 .sheet(isPresented: $showCreateExpenseSheet) {  // create expense sheet
@@ -40,7 +41,9 @@ struct HomePageView: View {
                 // need to pass _expenseManager here because same filtered values are used to filter expenses list shown
                 // bellow the graph
                 GraphView(expenseManager: _expenseManager, chartType: charType)
-                
+                Text("Expense list")
+                    .font(.system(.title2, design: .rounded))
+                    .foregroundColor(.purple)
                 List {
                     ForEach(expenseManager.filteredExpenses) { expense in
                         Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
