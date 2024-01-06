@@ -50,6 +50,7 @@ struct HomePageView: View {
                             }
                     }
                 }
+                .listStyle(.inset)
                 .sheet(item: $expenseManager.selectedExpense) { expense in // show edit expense sheet
                     EditExpenseView(dbId: expense.id, expenseManager: expenseManager)
                 }

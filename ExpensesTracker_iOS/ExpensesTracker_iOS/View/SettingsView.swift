@@ -10,7 +10,10 @@ import SwiftUI
 struct SettingsView: View {
     var body: some View {
         VStack {
-            Text("This is settings view")
+            Button("Factory reset") {
+                
+            }
+            .buttonStyle(.borderedProminent)
         }
         .toolbar {
             Menu {
