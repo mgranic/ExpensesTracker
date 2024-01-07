@@ -41,12 +41,22 @@ struct HomePageView: View {
                 // need to pass _expenseManager here because same filtered values are used to filter expenses list shown
                 // bellow the graph
                 GraphView(expenseManager: _expenseManager, chartType: charType)
+                Divider()
                 Text("Expense list")
                     .font(.system(.title2, design: .rounded))
                     .foregroundColor(.purple)
                 List {
                     ForEach(expenseManager.filteredExpenses) { expense in
-                        Text("\(expense.name) - \(expense.price, specifier: "%.2f")")
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text("\(expense.name)")
+                                    .font(.title3)
+                                Text("\(expense.category)")
+                            }
+                            Spacer()
+                            Text("\(expense.price, specifier: "%.2f") €")
+                                .font(.title3)
+                        }
                             .onTapGesture {
                                 // store selected expense into selectedExpense so that it can be edited
                                 expenseManager.selectedExpense = expense
