@@ -17,5 +17,6 @@ struct AddExpenseView: View {
         VStack {
             CreateEditExpenseFormView(isPresent: $isPresentSheet, expenseManager: _expenseManager)
         }
+        .background(Color.black)
     }
 }

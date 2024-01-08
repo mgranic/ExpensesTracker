@@ -126,6 +126,7 @@ struct GraphView: View {
                     Alert(title: Text("Failed to filter out expenses"))
             }
         }
+        .background(Color.black)
     }
     
     func resetPressedFields(_ buttonPressed: Int) {

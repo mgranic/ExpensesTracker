@@ -39,5 +39,6 @@ struct EditExpenseView: View {
                 Alert(title: Text("Failed to delete expense: \(expenseManager.selectedExpense!.name)"))
             }
         }
+        .background(Color.black)
     }
 }

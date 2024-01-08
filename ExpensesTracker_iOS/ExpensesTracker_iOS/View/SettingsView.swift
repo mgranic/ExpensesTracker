@@ -15,6 +15,7 @@ struct SettingsView: View {
             }
             .buttonStyle(.borderedProminent)
         }
+        .background(Color.black)
         .toolbar {
             Menu {
                 NavigationLink(destination:HomePageView()) {

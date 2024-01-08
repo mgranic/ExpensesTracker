@@ -46,5 +46,6 @@ struct ExpenseStatsView: View {
                     .foregroundColor(.black)
             }
         }
+        .background(Color.black)
     }
 }

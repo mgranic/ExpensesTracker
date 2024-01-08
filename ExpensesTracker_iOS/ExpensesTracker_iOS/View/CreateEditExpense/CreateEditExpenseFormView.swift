@@ -111,5 +111,6 @@ struct CreateEditExpenseFormView: View {
                 }
             }
         }
+        .background(Color.black)
     }
 }

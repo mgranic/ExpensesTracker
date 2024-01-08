@@ -83,6 +83,7 @@ struct HomePageView: View {
                 }
             }
         }
+        .background(Color.black)
         .padding()
     }
 }
