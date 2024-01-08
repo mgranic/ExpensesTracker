@@ -57,10 +57,11 @@ struct HomePageView: View {
                             Text("\(expense.price, specifier: "%.2f") €")
                                 .font(.title3)
                         }
-                            .onTapGesture {
-                                // store selected expense into selectedExpense so that it can be edited
-                                expenseManager.selectedExpense = expense
-                            }
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            // store selected expense into selectedExpense so that it can be edited
+                            expenseManager.selectedExpense = expense
+                        }
                     }
                 }
                 .listStyle(.inset)
