@@ -35,6 +35,52 @@ class Expense {
             expense.timestamp > dateFrom
         }
     }
+    
+    static func searchExpense(
+        dateFrom: Date,
+        dateTo: Date,
+        priceFome: Double,
+        priceTo: Double,
+        name: String,
+        category: String
+    ) -> Predicate<Expense> {
+        
+        if (name != "" && category != Category.none.rawValue) {
+            return #Predicate<Expense> { expense in
+                (expense.timestamp > dateFrom) &&
+                (expense.timestamp <= dateTo) &&
+                (expense.price > priceFome) &&
+                (expense.price <= priceTo) &&
+                (expense.name.contains(name)) &&
+                (expense.category == category)
+            }
+        } else if (name != "" && category == Category.none.rawValue) {
+            return #Predicate<Expense> { expense in
+                (expense.timestamp > dateFrom) &&
+                (expense.timestamp <= dateTo) &&
+                (expense.price > priceFome) &&
+                (expense.price <= priceTo) &&
+                (expense.name.contains(name))
+            }
+        } else if (name == "" && category != Category.none.rawValue) {
+            return #Predicate<Expense> { expense in
+                (expense.timestamp > dateFrom) &&
+                (expense.timestamp <= dateTo) &&
+                (expense.price > priceFome) &&
+                (expense.price <= priceTo) &&
+                (expense.category == category)
+            }
+        } else {
+            return #Predicate<Expense> { expense in
+                (expense.timestamp > dateFrom) &&
+                (expense.timestamp <= dateTo) &&
+                (expense.price > priceFome) &&
+                (expense.price < priceTo)
+            }
+        }
+
+        
+    }
 }
 
 enum Category: String, CaseIterable {

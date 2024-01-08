@@ -11,11 +11,11 @@ import SwiftUI
 struct AddExpenseView: View {
     
     @Binding var isPresentSheet: Bool
-    @ObservedObject var expenseManager: ExpenseManager
+    @Binding var filteredExpenses: [Expense]
 
     var body: some View {
         VStack {
-            CreateEditExpenseFormView(isPresent: $isPresentSheet, expenseManager: _expenseManager)
+            CreateEditExpenseFormView(isPresent: $isPresentSheet, filteredExpenses: $filteredExpenses)
         }
         .background(Color.black)
     }

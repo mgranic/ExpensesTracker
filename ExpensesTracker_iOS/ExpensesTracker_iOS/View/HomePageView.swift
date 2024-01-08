@@ -11,7 +11,7 @@ import SwiftData
 
 struct HomePageView: View {
     @Query(sort: \Expense.timestamp) var expenses: [Expense]
-    
+    @Environment(\.modelContext) var modelCtx
     @State var showCreateExpenseSheet: Bool = false
     @StateObject var expenseManager: ExpenseManager = ExpenseManager()
     @State var charType: ChartType = ChartType.bar
@@ -35,8 +35,8 @@ struct HomePageView: View {
                         .font(.system(.title2, design: .rounded))
                     Image(systemName: "plus.circle.fill")
                 }
-                .sheet(isPresented: $showCreateExpenseSheet) {  // create expense sheet
-                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, expenseManager: expenseManager)
+                .sheet(isPresented: $showCreateExpenseSheet, onDismiss: {expenseManager.getTotalSpent()}) {  // create expense sheet
+                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, filteredExpenses: $expenseManager.filteredExpenses)
                 }
                 // need to pass _expenseManager here because same filtered values are used to filter expenses list shown
                 // bellow the graph
@@ -65,11 +65,14 @@ struct HomePageView: View {
                     }
                 }
                 .listStyle(.inset)
-                .sheet(item: $expenseManager.selectedExpense) { expense in // show edit expense sheet
-                    EditExpenseView(dbId: expense.id, expenseManager: expenseManager)
+                .sheet(item: $expenseManager.selectedExpense, onDismiss: {expenseManager.getTotalSpent()}) { expense in // show edit expense sheet
+                    EditExpenseView(dbId: expense.id, filteredExpenses: $expenseManager.filteredExpenses, selectedExpense: expenseManager.selectedExpense!)
                 }
             }
             .toolbar {
+                NavigationLink(destination: SearchView(modelCtx: modelCtx)) {
+                    Image(systemName: "magnifyingglass")
+                }
                 Menu {
                     NavigationLink(destination: ExpenseStatsView()) {
                         Text("Expense Stats")
@@ -79,7 +82,7 @@ struct HomePageView: View {
                     }
                 } label: {
                     Label("Menu", systemImage: "ellipsis.circle")
-                        .foregroundColor(.black)
+                        //.foregroundColor(.black)
                 }
             }
         }
