@@ -27,6 +27,7 @@
 		20DEEBBA2B35F51F00B63006 /* ExpensesTracker_iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEBB92B35F51F00B63006 /* ExpensesTracker_iOSUITestsLaunchTests.swift */; };
 		20DEEBCC2B35FAE600B63006 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20DEEBCB2B35FAE600B63006 /* Expense.swift */; };
 		20EABE2C2B4DA9D60082477F /* PriceCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EABE2B2B4DA9D60082477F /* PriceCalculator.swift */; };
+		20EE75312B4F1EE700465A0C /* ExpenseFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20EE75302B4F1EE700465A0C /* ExpenseFilter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		20DEEBB92B35F51F00B63006 /* ExpensesTracker_iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesTracker_iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		20DEEBCB2B35FAE600B63006 /* Expense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Expense.swift; sourceTree = "<group>"; };
 		20EABE2B2B4DA9D60082477F /* PriceCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceCalculator.swift; sourceTree = "<group>"; };
+		20EE75302B4F1EE700465A0C /* ExpenseFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseFilter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				20EABE2B2B4DA9D60082477F /* PriceCalculator.swift */,
+				20EE75302B4F1EE700465A0C /* ExpenseFilter.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -348,6 +351,7 @@
 				20C000082B3EA93C00206CF1 /* CreateEditExpenseFormView.swift in Sources */,
 				20D05C8B2B4C8101005F1C4F /* SearchView.swift in Sources */,
 				20D26E872B4574CE0049C191 /* SettingsManager.swift in Sources */,
+				20EE75312B4F1EE700465A0C /* ExpenseFilter.swift in Sources */,
 				20D91F232B4304F300545C78 /* GraphConfig.swift in Sources */,
 				20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */,
 				20C00D7C2B39C3B800DE0B6F /* EditExpenseView.swift in Sources */,

@@ -11,17 +11,20 @@ import SwiftData
 
 struct GraphView: View {
     @Query(sort: \Expense.timestamp) var expenses: [Expense]
-    @StateObject var expenseManager: ExpenseManager
     @State var totalPricePerCategory: [(String, Double)] = []
-    
+    @Binding var filteredExpenses: [Expense]   // expenses that are show in list to user and from which graph is drawn
+    @State var showFilterAlert: Bool = false      // if true, show alert for bad filtering
     @State var intervalPressed: [Bool] = [false, false, false, false, false, false]
     @State var lastButtonPressed: Int = 0
+    
+    let priceCalculator = PriceCalculator()
+    let expenseFilter = ExpenseFilter()
                                                     
     var chartType: ChartType
     
     // if filtered data has to affect parrent view, then ExpenseManager has to be passed from parrent view 
-    init(expenseManager: StateObject<ExpenseManager> = StateObject(wrappedValue: ExpenseManager()), chartType: ChartType = ChartType.bar) {
-        self._expenseManager = expenseManager
+    init(filteredExpenses: Binding<[Expense]> = Binding.constant([]), chartType: ChartType = ChartType.bar) {
+        self._filteredExpenses = filteredExpenses
         self.chartType = chartType
     }
     
@@ -29,7 +32,7 @@ struct GraphView: View {
         VStack {
             Chart {
                 if chartType == ChartType.bar {
-                    ForEach(expenseManager.filteredExpenses) { expense in
+                    ForEach(filteredExpenses) { expense in
                         BarMark(
                             x: .value("Category", expense.category),
                             y: .value("Price", expense.price)
@@ -52,14 +55,14 @@ struct GraphView: View {
                 }
             }
             .onAppear {
-                expenseManager.resetExpensesFilter(expenses: expenses)
-                totalPricePerCategory = expenseManager.totalPricePerCategory()
+                expenseFilter.resetExpensesFilter(filteredExpenses: &filteredExpenses, expenses: expenses)
+                totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
             }
             HStack {
                 Button {
-                    expenseManager.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .day, expensesToFilter: expenses)
+                    expenseFilter.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .day, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = expenseManager.totalPricePerCategory()
+                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
                     resetPressedFields(0)
                 } label: {
@@ -68,9 +71,9 @@ struct GraphView: View {
                 .disabled(intervalPressed[0])
                 Spacer()
                 Button {
-                    expenseManager.filterExpensesByDate(dateFrom: 7, dateCalcMethod: .day, expensesToFilter: expenses)
+                    expenseFilter.filterExpensesByDate(dateFrom: 7, dateCalcMethod: .day, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = expenseManager.totalPricePerCategory()
+                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
                     resetPressedFields(1)
                 } label: {
@@ -79,9 +82,9 @@ struct GraphView: View {
                 .disabled(intervalPressed[1])
                 Spacer()
                 Button {
-                    expenseManager.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .month, expensesToFilter: expenses)
+                    expenseFilter.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .month, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = expenseManager.totalPricePerCategory()
+                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
                     resetPressedFields(2)
                 } label: {
@@ -90,9 +93,9 @@ struct GraphView: View {
                 .disabled(intervalPressed[2])
                 Spacer()
                 Button {
-                    expenseManager.filterExpensesByDate(dateFrom: 4, dateCalcMethod: .month, expensesToFilter: expenses)
+                    expenseFilter.filterExpensesByDate(dateFrom: 3, dateCalcMethod: .month, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = expenseManager.totalPricePerCategory()
+                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
                     resetPressedFields(3)
                 } label: {
@@ -101,9 +104,9 @@ struct GraphView: View {
                 .disabled(intervalPressed[3])
                 Spacer()
                 Button {
-                    expenseManager.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .year, expensesToFilter: expenses)
+                    expenseFilter.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .year, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = expenseManager.totalPricePerCategory()
+                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
                     resetPressedFields(4)
                 } label: {
@@ -112,9 +115,9 @@ struct GraphView: View {
                 .disabled(intervalPressed[4])
                 Spacer()
                 Button {
-                    expenseManager.resetExpensesFilter(expenses: expenses)
+                    expenseFilter.resetExpensesFilter(filteredExpenses: &filteredExpenses, expenses: expenses)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = expenseManager.totalPricePerCategory()
+                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
                     resetPressedFields(5)
                 } label: {
@@ -122,7 +125,7 @@ struct GraphView: View {
                 }
                 .disabled(intervalPressed[5])
             }
-            .alert(isPresented: $expenseManager.showFilterAlert) {
+            .alert(isPresented: $showFilterAlert) {
                     Alert(title: Text("Failed to filter out expenses"))
             }
         }

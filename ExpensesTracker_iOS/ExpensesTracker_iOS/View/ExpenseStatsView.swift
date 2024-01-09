@@ -10,6 +10,7 @@ import SwiftUI
 struct ExpenseStatsView: View {
     
     @State var chartType: ChartType = ChartType.bar
+    @State var filteredExpenses: [Expense] = []
     
     
     var body: some View {
@@ -23,7 +24,7 @@ struct ExpenseStatsView: View {
                     }
                 }
                 Button("Set default chart type") {
-                    var settingsManager = SettingManager()
+                    let settingsManager = SettingManager()
                     settingsManager.setDefaultChart(chartType: chartType)
                 }
                 .buttonStyle(.borderedProminent)
@@ -31,7 +32,7 @@ struct ExpenseStatsView: View {
             .scrollDisabled(true)
             .frame(maxHeight: UIScreen.main.bounds.height * 0.2)
             
-            GraphView(chartType: chartType)
+            GraphView(filteredExpenses: $filteredExpenses, chartType: chartType)
         }
         .toolbar {
             Menu {

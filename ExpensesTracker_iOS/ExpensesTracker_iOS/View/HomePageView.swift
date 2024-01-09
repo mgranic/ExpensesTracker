@@ -14,19 +14,25 @@ struct HomePageView: View {
     @Environment(\.modelContext) var modelCtx
     @State var showCreateExpenseSheet: Bool = false
     @StateObject var expenseManager: ExpenseManager = ExpenseManager()
+    @State var filteredExpenses: [Expense] = []   // expenses that are show in list to user and from which graph is drawn
+    @State var selectedExpense: Expense?          // expense selected for edditing
+    @State var showFilterAlert: Bool = false      // if true, show alert for bad filtering
     @State var charType: ChartType = ChartType.bar
+    @State var totalMoneySpent: Double = 0.0
+    let priceCalculator = PriceCalculator()
+    let expenseFilter = ExpenseFilter()
     
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Total: \(expenseManager.totalMoneySpent, specifier: "%.2f")")
+                Text("Total: \(totalMoneySpent, specifier: "%.2f")")
                     .font(.system(.title, design: .rounded))
                     .foregroundColor(.purple)
                     .onAppear(perform: {
-                        expenseManager.resetExpensesFilter(expenses: expenses)
+                        expenseFilter.resetExpensesFilter(filteredExpenses: &filteredExpenses, expenses: expenses)
                         let settingsManager = SettingManager()
                         charType = settingsManager.getDefaultChart()
-                        expenseManager.getTotalSpent()
+                        totalMoneySpent = priceCalculator.getTotalSpent()
                     })
                 Button(action: {
                     showCreateExpenseSheet.toggle()
@@ -35,18 +41,18 @@ struct HomePageView: View {
                         .font(.system(.title2, design: .rounded))
                     Image(systemName: "plus.circle.fill")
                 }
-                .sheet(isPresented: $showCreateExpenseSheet, onDismiss: {expenseManager.getTotalSpent()}) {  // create expense sheet
-                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, filteredExpenses: $expenseManager.filteredExpenses)
+                .sheet(isPresented: $showCreateExpenseSheet, onDismiss: {totalMoneySpent = priceCalculator.getTotalSpent()}) {  // create expense sheet
+                    AddExpenseView(isPresentSheet:$showCreateExpenseSheet, filteredExpenses: $filteredExpenses)
                 }
                 // need to pass _expenseManager here because same filtered values are used to filter expenses list shown
                 // bellow the graph
-                GraphView(expenseManager: _expenseManager, chartType: charType)
+                GraphView(filteredExpenses: $filteredExpenses, chartType: charType)
                 Divider()
                 Text("Expense list")
                     .font(.system(.title2, design: .rounded))
                     .foregroundColor(.purple)
                 List {
-                    ForEach(expenseManager.filteredExpenses) { expense in
+                    ForEach(filteredExpenses) { expense in
                         HStack {
                             VStack(alignment: .leading) {
                                 Text("\(expense.name)")
@@ -60,13 +66,13 @@ struct HomePageView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             // store selected expense into selectedExpense so that it can be edited
-                            expenseManager.selectedExpense = expense
+                            selectedExpense = expense
                         }
                     }
                 }
                 .listStyle(.inset)
-                .sheet(item: $expenseManager.selectedExpense, onDismiss: {expenseManager.getTotalSpent()}) { expense in // show edit expense sheet
-                    EditExpenseView(dbId: expense.id, filteredExpenses: $expenseManager.filteredExpenses, selectedExpense: expenseManager.selectedExpense!)
+                .sheet(item: $selectedExpense, onDismiss: {totalMoneySpent = priceCalculator.getTotalSpent()}) { expense in // show edit expense sheet
+                    EditExpenseView(dbId: expense.id, filteredExpenses: $filteredExpenses, selectedExpense: expense)
                 }
             }
             .toolbar {

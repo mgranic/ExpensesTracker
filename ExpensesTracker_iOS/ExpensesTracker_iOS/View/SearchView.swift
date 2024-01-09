@@ -18,7 +18,6 @@ struct SearchView: View {
     @State var dateTo: Date = Date()
     @State var filteredExpenses: [Expense] = []
     @State var selectedExpense: Expense?
-    //@StateObject var expenseManager = ExpenseManager()
     
     init(modelCtx: ModelContext) {
         self._searchManager = StateObject(wrappedValue: SearchManager(modelContext: modelCtx))
@@ -79,9 +78,7 @@ struct SearchView: View {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         // store selected expense into selectedExpense so that it can be edited
-                        //expenseManager.selectedExpense = expense
                         selectedExpense = expense
-                        //expenseManager.filteredExpenses = searchManager.expenseList
                     }
                 }
             }
