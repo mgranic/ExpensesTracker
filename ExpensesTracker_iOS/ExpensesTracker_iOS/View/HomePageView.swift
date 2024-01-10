@@ -10,17 +10,15 @@ import Charts
 import SwiftData
 
 struct HomePageView: View {
-    @Query(sort: \Expense.timestamp) var expenses: [Expense]
     @Environment(\.modelContext) var modelCtx
-    @State var showCreateExpenseSheet: Bool = false
-    @StateObject var expenseManager: ExpenseManager = ExpenseManager()
-    @State var filteredExpenses: [Expense] = []   // expenses that are show in list to user and from which graph is drawn
-    @State var selectedExpense: Expense?          // expense selected for edditing
-    @State var showFilterAlert: Bool = false      // if true, show alert for bad filtering
-    @State var charType: ChartType = ChartType.bar
-    @State var totalMoneySpent: Double = 0.0
-    let priceCalculator = PriceCalculator()
-    let expenseFilter = ExpenseFilter()
+    @State var showCreateExpenseSheet: Bool = false   // toggle create expense form
+    @State var filteredExpenses: [Expense] = []       // expenses that are show in list to user and from which graph is drawn
+    @State var selectedExpense: Expense?              // expense selected for edditing
+    @State var showFilterAlert: Bool = false          // if true, show alert for bad filtering
+    @State var charType: ChartType = ChartType.bar    // chart type that is rendered
+    @State var totalMoneySpent: Double = 0.0          // total money spent this month
+    let priceCalculator = PriceCalculator()           // calculate total price
+    let expenseFilter = ExpenseFilter()               // filter expenses
     
     var body: some View {
         NavigationStack {
@@ -29,7 +27,7 @@ struct HomePageView: View {
                     .font(.system(.title, design: .rounded))
                     .foregroundColor(.purple)
                     .onAppear(perform: {
-                        expenseFilter.resetExpensesFilter(filteredExpenses: &filteredExpenses, expenses: expenses)
+                        filteredExpenses = expenseFilter.getExpensesByDate(dateFrom: 1, dateCalcMethod: .month, showFilterAlert: &showFilterAlert, modelContext: modelCtx)
                         let settingsManager = SettingManager()
                         charType = settingsManager.getDefaultChart()
                         totalMoneySpent = priceCalculator.getTotalSpent()
@@ -88,7 +86,6 @@ struct HomePageView: View {
                     }
                 } label: {
                     Label("Menu", systemImage: "ellipsis.circle")
-                        //.foregroundColor(.black)
                 }
             }
         }

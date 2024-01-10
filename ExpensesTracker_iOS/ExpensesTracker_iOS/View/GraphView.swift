@@ -10,17 +10,14 @@ import Charts
 import SwiftData
 
 struct GraphView: View {
-    @Query(sort: \Expense.timestamp) var expenses: [Expense]
-    @State var totalPricePerCategory: [(String, Double)] = []
-    @Binding var filteredExpenses: [Expense]   // expenses that are show in list to user and from which graph is drawn
-    @State var showFilterAlert: Bool = false      // if true, show alert for bad filtering
-    @State var intervalPressed: [Bool] = [false, false, false, false, false, false]
-    @State var lastButtonPressed: Int = 0
+    @Environment(\.modelContext) var modelCtx
+    @Binding var filteredExpenses: [Expense]      // expenses that are show in list to user and from which graph is drawn
+    @StateObject var graphViewManager = GrapshViewManager()
     
     let priceCalculator = PriceCalculator()
     let expenseFilter = ExpenseFilter()
                                                     
-    var chartType: ChartType
+    var chartType: ChartType                      // current chart type
     
     // if filtered data has to affect parrent view, then ExpenseManager has to be passed from parrent view 
     init(filteredExpenses: Binding<[Expense]> = Binding.constant([]), chartType: ChartType = ChartType.bar) {
@@ -41,7 +38,7 @@ struct GraphView: View {
                     }
                 } else {
                     // iterate total pricce per category
-                    ForEach(totalPricePerCategory, id: \.0) { pair in
+                    ForEach(graphViewManager.totalPricePerCategory, id: \.0) { pair in
                         if pair.1 > 0.0 {
                             SectorMark(
                                 angle: .value("Price", pair.1),
@@ -55,86 +52,81 @@ struct GraphView: View {
                 }
             }
             .onAppear {
-                expenseFilter.resetExpensesFilter(filteredExpenses: &filteredExpenses, expenses: expenses)
-                totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
+                filteredExpenses = expenseFilter.getExpensesByDate(dateFrom: 1, dateCalcMethod: .month, showFilterAlert: &graphViewManager.showFilterAlert, modelContext: modelCtx)
+                graphViewManager.resetPressedFields(2)
+                graphViewManager.totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
             }
             HStack {
                 Button {
-                    expenseFilter.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .day, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
+                    filteredExpenses = expenseFilter.getExpensesByDate(dateFrom: 1, dateCalcMethod: .day, showFilterAlert: &graphViewManager.showFilterAlert, modelContext: modelCtx)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
+                        graphViewManager.totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
-                    resetPressedFields(0)
+                    graphViewManager.resetPressedFields(0)
                 } label: {
                     Text("1D")
                 }
-                .disabled(intervalPressed[0])
+                .disabled(graphViewManager.intervalPressed[0])
                 Spacer()
                 Button {
-                    expenseFilter.filterExpensesByDate(dateFrom: 7, dateCalcMethod: .day, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
+                    filteredExpenses = expenseFilter.getExpensesByDate(dateFrom: 7, dateCalcMethod: .day, showFilterAlert: &graphViewManager.showFilterAlert, modelContext: modelCtx)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
+                        graphViewManager.totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
-                    resetPressedFields(1)
+                    graphViewManager.resetPressedFields(1)
                 } label: {
                     Text("1W")
                 }
-                .disabled(intervalPressed[1])
+                .disabled(graphViewManager.intervalPressed[1])
                 Spacer()
                 Button {
-                    expenseFilter.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .month, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
+                    filteredExpenses = expenseFilter.getExpensesByDate(dateFrom: 1, dateCalcMethod: .month, showFilterAlert: &graphViewManager.showFilterAlert, modelContext: modelCtx)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
+                        graphViewManager.totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
-                    resetPressedFields(2)
+                    graphViewManager.resetPressedFields(2)
                 } label: {
                     Text("1M")
                 }
-                .disabled(intervalPressed[2])
+                .disabled(graphViewManager.intervalPressed[2])
                 Spacer()
                 Button {
-                    expenseFilter.filterExpensesByDate(dateFrom: 3, dateCalcMethod: .month, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
+                    filteredExpenses = expenseFilter.getExpensesByDate(dateFrom: 3, dateCalcMethod: .month, showFilterAlert: &graphViewManager.showFilterAlert, modelContext: modelCtx)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
+                        graphViewManager.totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
-                    resetPressedFields(3)
+                    graphViewManager.resetPressedFields(3)
                 } label: {
                     Text("3M")
                 }
-                .disabled(intervalPressed[3])
+                .disabled(graphViewManager.intervalPressed[3])
                 Spacer()
                 Button {
-                    expenseFilter.filterExpensesByDate(dateFrom: 1, dateCalcMethod: .year, expensesToFilter: expenses, filteredExpenses: &filteredExpenses, showFilterAlert: &showFilterAlert)
+                    filteredExpenses = expenseFilter.getExpensesByDate(dateFrom: 1, dateCalcMethod: .year, showFilterAlert: &graphViewManager.showFilterAlert, modelContext: modelCtx)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
+                        graphViewManager.totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
-                    resetPressedFields(4)
+                    graphViewManager.resetPressedFields(4)
                 } label: {
                     Text("1Y")
                 }
-                .disabled(intervalPressed[4])
+                .disabled(graphViewManager.intervalPressed[4])
                 Spacer()
                 Button {
-                    expenseFilter.resetExpensesFilter(filteredExpenses: &filteredExpenses, expenses: expenses)
+                    filteredExpenses = expenseFilter.getAllExpenses(modelContext: modelCtx)
                     if (chartType == ChartType.pie) {
-                        totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
+                        graphViewManager.totalPricePerCategory = priceCalculator.totalPricePerCategory(filteredExpenses: filteredExpenses)
                     }
-                    resetPressedFields(5)
+                    graphViewManager.resetPressedFields(5)
                 } label: {
                     Text("MAX")
                 }
-                .disabled(intervalPressed[5])
+                .disabled(graphViewManager.intervalPressed[5])
             }
-            .alert(isPresented: $showFilterAlert) {
+            .alert(isPresented: $graphViewManager.showFilterAlert) {
                     Alert(title: Text("Failed to filter out expenses"))
             }
         }
         .background(Color.black)
-    }
-    
-    func resetPressedFields(_ buttonPressed: Int) {
-        intervalPressed[lastButtonPressed] = false
-        intervalPressed[buttonPressed] = true
-        lastButtonPressed = buttonPressed
     }
 }

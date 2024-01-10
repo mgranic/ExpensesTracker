@@ -12,6 +12,7 @@ extension SearchView {
     class SearchManager : ObservableObject {
         var modelContext: ModelContext
         @Published var expenseList: [Expense] = []
+        let expenseFilter = ExpenseFilter()
         
         init(modelContext: ModelContext) {
             self.modelContext = modelContext
@@ -19,18 +20,11 @@ extension SearchView {
         }
         
         func getFilteredExpenseList(name: String, category: String, priceFrom: Double, priceTo: Double, dateFrom: Date, dateTo: Date) {
-            let predicate = Expense.searchExpense(dateFrom: dateFrom, dateTo: dateTo, priceFome: priceFrom, priceTo: priceTo, name: name, category: category)
-            let descriptor = FetchDescriptor<Expense>(predicate: predicate)
-            expenseList = try! self.modelContext.fetch(descriptor)
+            expenseList = expenseFilter.getFilteredExpenseList(modelContext: modelContext, name: name, category: category, priceFrom: priceFrom, priceTo: priceTo, dateFrom: dateFrom, dateTo: dateTo)
         }
         
         func getAllExpenses() {
-            let descriptor = FetchDescriptor<Expense>(sortBy: [SortDescriptor(\.timestamp)])
-            expenseList = try! self.modelContext.fetch(descriptor)
-            
-            //for expense in expenseList {
-            //    print(expense.name)
-            //}
+            expenseList = expenseFilter.getAllExpenses(modelContext: modelContext)
         }
     }
 }

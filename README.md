@@ -1,7 +1,10 @@
 # ExpenseTracker
 ## _iOS and Flutter applicaions to track your expenses_
 
-Expense tracker is apliation that allows you to track your expenses and view different statistics.
+Expense tracker is iOS (SwiftUI) aplication that allows you to track your expenses and view different statistics.
+
+There is also a Flutter app in the repo that is now just used to test web service (.NET). This web service will ulimately be used to backup your data on server.
+Flutter app will evolve into desktop/web/Android application, but for now it is "work in progress".
 
 ## Features
 

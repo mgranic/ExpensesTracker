@@ -98,5 +98,7 @@ enum Category: String, CaseIterable {
     case hobby
     case sports
     case fun
+    case health
+    case supplements
     case other
 }

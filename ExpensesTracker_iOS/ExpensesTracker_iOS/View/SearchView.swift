@@ -16,7 +16,7 @@ struct SearchView: View {
     @State var priceTo: Double = 1000000.0
     @State var dateFrom: Date = Date()
     @State var dateTo: Date = Date()
-    @State var filteredExpenses: [Expense] = []
+    //@State var filteredExpenses: [Expense] = []
     @State var selectedExpense: Expense?
     
     init(modelCtx: ModelContext) {
