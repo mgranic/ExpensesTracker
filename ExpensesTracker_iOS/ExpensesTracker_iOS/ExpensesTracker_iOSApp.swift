@@ -14,6 +14,6 @@ struct ExpensesTracker_iOSApp: App {
         WindowGroup {
             HomePageView()
         }
-        .modelContainer(for: Expense.self)
+        .modelContainer(for: [Expense.self, ScheduledExpense.self])
     }
 }

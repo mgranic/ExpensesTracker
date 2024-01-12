@@ -11,13 +11,13 @@ import SwiftData
 
 @Model
 class Expense {
-    var id = UUID()
+    var id: UUID
     var price: Double
     var name: String
     var category: String
     var timestamp: Date
     
-    init(id: UUID = UUID(), price: Double, name: String, category: String, timestamp: Date) {
+    init(id: UUID = UUID(), price: Double, name: String, category: String, timestamp: Date = Date()) {
         self.id = id
         self.price = price
         self.name = name

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ExpenseStatsView: View {
-    
+    @Environment(\.modelContext) var modelCtx
     @State var chartType: ChartType = ChartType.bar
     @State var filteredExpenses: [Expense] = []
     
@@ -35,9 +35,15 @@ struct ExpenseStatsView: View {
             GraphView(filteredExpenses: $filteredExpenses, chartType: chartType)
         }
         .toolbar {
+            NavigationLink(destination: SearchView(modelCtx: modelCtx)) {
+                Image(systemName: "magnifyingglass")
+            }
             Menu {
                 NavigationLink(destination: HomePageView()) {
                     Text("Home Page")
+                }
+                NavigationLink(destination: ScheduleExpenseView()) {
+                    Text("Schedule expense")
                 }
                 NavigationLink(destination: SettingsView()) {
                     Text("Settings")

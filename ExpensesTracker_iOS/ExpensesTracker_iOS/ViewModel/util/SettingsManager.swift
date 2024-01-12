@@ -33,9 +33,10 @@ class SettingManager {
         // chart to be shown on main page
         UserDefaults.standard.removeObject(forKey: "default_chart")
         
-        // delete Expense table
+        // delete data from database
         do {
             try modelContext.delete(model: Expense.self)
+            try modelContext.delete(model: ScheduledExpense.self)
         } catch {
             showAlert = true
         }

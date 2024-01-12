@@ -28,6 +28,9 @@ struct SettingsView: View {
                 NavigationLink(destination:HomePageView()) {
                     Text("Home Page")
                 }
+                NavigationLink(destination: ScheduleExpenseView()) {
+                    Text("Schedule expense")
+                }
                 NavigationLink(destination: ExpenseStatsView()) {
                     Text("Expense Stats")
                 }

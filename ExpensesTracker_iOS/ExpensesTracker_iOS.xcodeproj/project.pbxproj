@@ -12,7 +12,13 @@
 		20C000082B3EA93C00206CF1 /* CreateEditExpenseFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C000072B3EA93C00206CF1 /* CreateEditExpenseFormView.swift */; };
 		20C00D7C2B39C3B800DE0B6F /* EditExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */; };
 		20C01DBF2B4FBD0D00DCF0A7 /* GraphViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C01DBE2B4FBD0D00DCF0A7 /* GraphViewManager.swift */; };
+		20C2B7792B5185B400237B28 /* ScheduleExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2B7782B5185B400237B28 /* ScheduleExpenseView.swift */; };
+		20C2B77B2B5185D000237B28 /* ScheduledExpense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2B77A2B5185D000237B28 /* ScheduledExpense.swift */; };
+		20C2B77F2B51913200237B28 /* CreateEditScheduleForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2B77E2B51913200237B28 /* CreateEditScheduleForm.swift */; };
+		20C2B7812B51945A00237B28 /* CreateScheduledExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2B7802B51945A00237B28 /* CreateScheduledExpenseView.swift */; };
+		20C2B7832B51948100237B28 /* EditScheduledExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2B7822B51948100237B28 /* EditScheduledExpenseView.swift */; };
 		20D05C8B2B4C8101005F1C4F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D05C8A2B4C8101005F1C4F /* SearchView.swift */; };
+		20D0FB2C2B52A4EF004F67D3 /* ScheduleExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D0FB2B2B52A4EE004F67D3 /* ScheduleExpenseManager.swift */; };
 		20D26E872B4574CE0049C191 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D26E862B4574CE0049C191 /* SettingsManager.swift */; };
 		20D864722B42DB480099FEA3 /* ExpenseStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D864712B42DB480099FEA3 /* ExpenseStatsView.swift */; };
 		20D864742B42DB740099FEA3 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D864732B42DB740099FEA3 /* SettingsView.swift */; };
@@ -53,7 +59,13 @@
 		20C000072B3EA93C00206CF1 /* CreateEditExpenseFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditExpenseFormView.swift; sourceTree = "<group>"; };
 		20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExpenseView.swift; sourceTree = "<group>"; };
 		20C01DBE2B4FBD0D00DCF0A7 /* GraphViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewManager.swift; sourceTree = "<group>"; };
+		20C2B7782B5185B400237B28 /* ScheduleExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExpenseView.swift; sourceTree = "<group>"; };
+		20C2B77A2B5185D000237B28 /* ScheduledExpense.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduledExpense.swift; sourceTree = "<group>"; };
+		20C2B77E2B51913200237B28 /* CreateEditScheduleForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditScheduleForm.swift; sourceTree = "<group>"; };
+		20C2B7802B51945A00237B28 /* CreateScheduledExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateScheduledExpenseView.swift; sourceTree = "<group>"; };
+		20C2B7822B51948100237B28 /* EditScheduledExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledExpenseView.swift; sourceTree = "<group>"; };
 		20D05C8A2B4C8101005F1C4F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		20D0FB2B2B52A4EE004F67D3 /* ScheduleExpenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExpenseManager.swift; sourceTree = "<group>"; };
 		20D26E862B4574CE0049C191 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
 		20D864712B42DB480099FEA3 /* ExpenseStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpenseStatsView.swift; sourceTree = "<group>"; };
 		20D864732B42DB740099FEA3 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -104,9 +116,28 @@
 			children = (
 				20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */,
 				20B5AA212B36A4140083A341 /* AddExpenseView.swift */,
-				20C000072B3EA93C00206CF1 /* CreateEditExpenseFormView.swift */,
 			);
 			path = CreateEditExpense;
+			sourceTree = "<group>";
+		};
+		20C2B77C2B518B4800237B28 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				20D864752B42E8080099FEA3 /* GraphView.swift */,
+				20C000072B3EA93C00206CF1 /* CreateEditExpenseFormView.swift */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		20C2B77D2B5190F000237B28 /* ScheduleExpense */ = {
+			isa = PBXGroup;
+			children = (
+				20C2B77E2B51913200237B28 /* CreateEditScheduleForm.swift */,
+				20C2B7802B51945A00237B28 /* CreateScheduledExpenseView.swift */,
+				20C2B7822B51948100237B28 /* EditScheduledExpenseView.swift */,
+				20C2B7782B5185B400237B28 /* ScheduleExpenseView.swift */,
+			);
+			path = ScheduleExpense;
 			sourceTree = "<group>";
 		};
 		20DA83E62B4189AE00A631C1 /* ViewModel */ = {
@@ -180,11 +211,12 @@
 		20DEEBC62B35F55D00B63006 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				20C2B77D2B5190F000237B28 /* ScheduleExpense */,
+				20C2B77C2B518B4800237B28 /* common */,
 				20C000062B3EA8FD00206CF1 /* CreateEditExpense */,
 				20DEEB9E2B35F51D00B63006 /* HomePageView.swift */,
 				20D864712B42DB480099FEA3 /* ExpenseStatsView.swift */,
 				20D864732B42DB740099FEA3 /* SettingsView.swift */,
-				20D864752B42E8080099FEA3 /* GraphView.swift */,
 				20D05C8A2B4C8101005F1C4F /* SearchView.swift */,
 			);
 			path = View;
@@ -195,6 +227,7 @@
 			children = (
 				20DEEBCB2B35FAE600B63006 /* Expense.swift */,
 				20D91F222B4304F300545C78 /* GraphConfig.swift */,
+				20C2B77A2B5185D000237B28 /* ScheduledExpense.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -205,6 +238,7 @@
 				20EABE2B2B4DA9D60082477F /* PriceCalculator.swift */,
 				20EE75302B4F1EE700465A0C /* ExpenseFilter.swift */,
 				20D26E862B4574CE0049C191 /* SettingsManager.swift */,
+				20D0FB2B2B52A4EE004F67D3 /* ScheduleExpenseManager.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -342,15 +376,21 @@
 				20DEEBCC2B35FAE600B63006 /* Expense.swift in Sources */,
 				20ABE8992B4D2A540087ED38 /* SearchManager.swift in Sources */,
 				20B5AA222B36A4140083A341 /* AddExpenseView.swift in Sources */,
+				20D0FB2C2B52A4EF004F67D3 /* ScheduleExpenseManager.swift in Sources */,
 				20D864742B42DB740099FEA3 /* SettingsView.swift in Sources */,
 				20D864722B42DB480099FEA3 /* ExpenseStatsView.swift in Sources */,
 				20EABE2C2B4DA9D60082477F /* PriceCalculator.swift in Sources */,
+				20C2B7832B51948100237B28 /* EditScheduledExpenseView.swift in Sources */,
+				20C2B77F2B51913200237B28 /* CreateEditScheduleForm.swift in Sources */,
+				20C2B77B2B5185D000237B28 /* ScheduledExpense.swift in Sources */,
 				20D864762B42E8080099FEA3 /* GraphView.swift in Sources */,
 				20C01DBF2B4FBD0D00DCF0A7 /* GraphViewManager.swift in Sources */,
+				20C2B7812B51945A00237B28 /* CreateScheduledExpenseView.swift in Sources */,
 				20DEEB9F2B35F51D00B63006 /* HomePageView.swift in Sources */,
 				20C000082B3EA93C00206CF1 /* CreateEditExpenseFormView.swift in Sources */,
 				20D05C8B2B4C8101005F1C4F /* SearchView.swift in Sources */,
 				20D26E872B4574CE0049C191 /* SettingsManager.swift in Sources */,
+				20C2B7792B5185B400237B28 /* ScheduleExpenseView.swift in Sources */,
 				20EE75312B4F1EE700465A0C /* ExpenseFilter.swift in Sources */,
 				20D91F232B4304F300545C78 /* GraphConfig.swift in Sources */,
 				20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */,
