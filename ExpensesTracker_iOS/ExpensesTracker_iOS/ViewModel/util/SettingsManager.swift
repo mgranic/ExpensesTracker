@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 class SettingManager {
     
@@ -19,5 +20,24 @@ class SettingManager {
         let defaultChart =  ChartType(rawValue: (UserDefaults.standard.string(forKey: "default_chart") ?? "bar")) 
         
         return defaultChart ?? ChartType.bar
+    }
+    
+    // reset all UserDefauls
+    func resetUserDefaults(modelContext: ModelContext, showAlert: inout Bool) {
+        // used to decide if total price should be calculated for new month
+        UserDefaults.standard.removeObject(forKey: "last_month_entered")
+        
+        // total money spent this month
+        UserDefaults.standard.removeObject(forKey: "total_spent")
+        
+        // chart to be shown on main page
+        UserDefaults.standard.removeObject(forKey: "default_chart")
+        
+        // delete Expense table
+        do {
+            try modelContext.delete(model: Expense.self)
+        } catch {
+            showAlert = true
+        }
     }
 }
