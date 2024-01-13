@@ -8,21 +8,36 @@
 import SwiftUI
 
 struct EditScheduledExpenseView: View {
+    @Environment(\.modelContext) var modelCtx
+    @Environment(\.dismiss) var dismiss
+    
     @State var showAlert: Bool = false
+    var dbId: UUID
+    var selectedExpense: ScheduledExpense
+    
+    init(dbId: UUID, selectedExpense: ScheduledExpense) {
+        self.dbId = dbId
+        self.selectedExpense = selectedExpense
+        print("EditScheduledExpenseView selectedExpense.id = \(selectedExpense.id)")
+    }
+    
+    
+    
+    
     var body: some View {
-        CreateEditScheduleForm()
+        CreateEditScheduleForm(isEdit: true, selectedExpense: selectedExpense)
         
         Button {
-            //do {
-            //    try modelCtx.delete(model: Expense.self, where: #Predicate { expense in expense.id == dbId })
+            do {
+                try modelCtx.delete(model: ScheduledExpense.self, where: #Predicate { expense in expense.id == dbId })
             //    filteredExpenses.removeAll(where: { expense in expense.id == dbId})
             //    let priceCalculator = PriceCalculator()
             //    priceCalculator.setTotalSpent(amount: selectedExpense.price * (-1), date: selectedExpense.timestamp)
-            //    dismiss()
-            //    showAlert = false
-            //} catch {
-            //    showAlert = true
-            //}
+                dismiss()
+                showAlert = false
+            } catch {
+                showAlert = true
+            }
         } label: {
             Text("DELETE TASK")
                 .foregroundColor(.red)
@@ -32,8 +47,4 @@ struct EditScheduledExpenseView: View {
             Alert(title: Text("Failed to delete task."))
         }
     }
-}
-
-#Preview {
-    EditScheduledExpenseView()
 }

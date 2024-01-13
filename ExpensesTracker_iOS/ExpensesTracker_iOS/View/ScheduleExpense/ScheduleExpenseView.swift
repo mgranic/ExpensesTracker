@@ -43,14 +43,23 @@ struct ScheduleExpenseView: View {
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            // store selected expense into selectedExpense so that it can be edited
+                            // store selected scheduled expense into selectedExpense so that it can be edited
+                            print("+++++++++++++++++++++++++++++++++++++++")
+                            print(expense.id)
+                            print(expense.name)
+                            print("+++++++++++++++++++++++++++++++++++++++")
+                            //selectedExpense = ScheduledExpense(id: expense.id, name: expense.name, price: expense.price, category: expense.category, startDate: expense.startDate, interval: expense.interval, intervalStep: expense.intervalStep, isRecurring: expense.isRecurring, isActive: expense.isActive)
                             selectedExpense = expense
+                            print("*************************************")
+                            print(selectedExpense!.id)
+                            print(selectedExpense!.name)
+                            print("*************************************")
                         }
                     }
                 }
                 .listStyle(.inset)
-                .sheet(item: $selectedExpense) { expense in // show edit expense sheet
-                    EditScheduledExpenseView()
+                .sheet(item: $selectedExpense) { expense in // show edit schedule expense sheet
+                    EditScheduledExpenseView(dbId: expense.id, selectedExpense: expense)
                 }
             }
         }
