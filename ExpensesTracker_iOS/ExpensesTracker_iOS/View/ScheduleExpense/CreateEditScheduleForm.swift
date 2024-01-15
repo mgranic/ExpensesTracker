@@ -17,13 +17,13 @@ struct CreateEditScheduleForm: View {
     @State var category: Category = Category.none
     @State var interval: ExpenseInterval = ExpenseInterval.month
     @State var startDate: Date = Date()
-    @State var isRecurring: Bool = false
-    @State var intervalStep: Int = 1
+    @State var isRecurring: Bool = true
     
     private var isEditView: Bool
     private var selectedExpense: ScheduledExpense
+    private var dateFrom = Date()...
     
-    init(isPresent: Binding<Bool> = .constant(true), isEdit: Bool = false, selectedExpense: ScheduledExpense = ScheduledExpense(name: "", price: 0.0, category: Category.none.rawValue, intervalStep: 1)) {
+    init(isPresent: Binding<Bool> = .constant(true), isEdit: Bool = false, selectedExpense: ScheduledExpense = ScheduledExpense(name: "", price: 0.0, category: Category.none.rawValue)) {
         self._isPresentSheet = isPresent
         self.isEditView = isEdit
         self._name = State(initialValue: selectedExpense.name)
@@ -32,11 +32,7 @@ struct CreateEditScheduleForm: View {
         self._interval = State(initialValue: ExpenseInterval(rawValue: selectedExpense.interval) ?? ExpenseInterval.month)
         self._startDate = State(initialValue: selectedExpense.startDate)
         self._isRecurring = State(initialValue: selectedExpense.isRecurring)
-        self._intervalStep = State(initialValue: selectedExpense.intervalStep)
         self.selectedExpense = selectedExpense
-        print("CreateEditScheduleForm name = \(self.name)")
-        print("CreateEditScheduleForm selectedExpense.name = \(selectedExpense.name)")
-        print("CreateEditScheduleForm selectedExpense.id = \(selectedExpense.id)")
     }
     
     var body: some View {
@@ -62,14 +58,15 @@ struct CreateEditScheduleForm: View {
                     DatePicker (
                         "Date",
                         selection: $startDate,
+                        //in: dateFrom,
                         displayedComponents: [.date]
                     )
                 }
-                Section {
-                    Toggle(isOn: $isRecurring) {
-                        Text("Repeating task")
-                    }
-                }
+                //Section {
+                //    Toggle(isOn: $isRecurring) {
+                //        Text("Repeating task")
+                //    }
+                //}
                 Section {
                     HStack(alignment: .center) {
                         Picker("Interval:", selection: $interval) {
@@ -77,11 +74,6 @@ struct CreateEditScheduleForm: View {
                                 Text("\(interval.rawValue)").tag(interval.rawValue)
                             }
                         }
-                    }
-                    HStack(alignment: .center) {
-                        Text("Interval step")
-                        TextField("Interval step", value: $intervalStep, format: .number)
-                            .keyboardType(.numberPad)
                     }
                 }
                 Section {
@@ -95,12 +87,15 @@ struct CreateEditScheduleForm: View {
                                     selectedExpense.interval = interval.rawValue
                                     selectedExpense.isRecurring = isRecurring
                                     selectedExpense.startDate = startDate
-                                    selectedExpense.intervalStep = intervalStep
                                     dismiss()
                                 } else { // add new scheduled expense
                                     let scheduleMgr = ScheduleExpenseManager(modelCtx: modelCtx)
-                                    scheduleMgr.createScheduledExpense(scheduledExpense: ScheduledExpense(name: name, price: price, category: category.rawValue, startDate: startDate, interval: interval.rawValue, intervalStep: intervalStep, isRecurring: isRecurring))
+                                    let scheduledExpense = ScheduledExpense(name: name, price: price, category: category.rawValue, startDate: startDate, interval: interval.rawValue, isRecurring: isRecurring)
+                                    scheduleMgr.createScheduledExpense(scheduledExpense: scheduledExpense)
                                     isPresentSheet = false
+                                    
+                                    let scheduleExpenseManager = ScheduleExpenseManager(modelCtx: modelCtx)
+                                    scheduleExpenseManager.createScheduledExpenses(scheduledExpense: scheduledExpense)
                                 }
                             }
                             .buttonStyle(.bordered)

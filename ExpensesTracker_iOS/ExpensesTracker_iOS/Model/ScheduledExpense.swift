@@ -16,26 +16,28 @@ class ScheduledExpense {
     var category: String
     var startDate: Date
     var interval: String
-    var intervalStep: Int
     var isRecurring: Bool
     var isActive: Bool
+    var lastExecuted: Date
+    var isFirstExecution: Bool
     
-    init(id: UUID = UUID(), name: String, price: Double, category: String, startDate: Date = Date(), interval: String = ExpenseInterval.month.rawValue, intervalStep: Int, isRecurring: Bool = false, isActive: Bool = true) {
+    init(id: UUID = UUID(), name: String, price: Double, category: String, startDate: Date = Date(), interval: String = ExpenseInterval.month.rawValue, isRecurring: Bool = false, isActive: Bool = true) {
         self.id = id
         self.name = name
         self.price = price
         self.category = category
         self.startDate = startDate
         self.interval = interval
-        self.intervalStep = intervalStep
         self.isRecurring = isRecurring
         self.isActive = true
+        self.lastExecuted = startDate
+        self.isFirstExecution = true
     }
 }
 
 enum ExpenseInterval: String, CaseIterable {
-    case day
-    case week
+    //case day
+    //case week
     case month
     case year
 }

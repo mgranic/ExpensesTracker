@@ -18,7 +18,6 @@ struct EditScheduledExpenseView: View {
     init(dbId: UUID, selectedExpense: ScheduledExpense) {
         self.dbId = dbId
         self.selectedExpense = selectedExpense
-        print("EditScheduledExpenseView selectedExpense.id = \(selectedExpense.id)")
     }
     
     

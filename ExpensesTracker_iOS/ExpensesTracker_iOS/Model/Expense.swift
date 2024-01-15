@@ -16,6 +16,7 @@ class Expense {
     var name: String
     var category: String
     var timestamp: Date
+    var isScheduledExpense: Bool = false    // used to render scheduled expenses in different color
     
     init(id: UUID = UUID(), price: Double, name: String, category: String, timestamp: Date = Date()) {
         self.id = id

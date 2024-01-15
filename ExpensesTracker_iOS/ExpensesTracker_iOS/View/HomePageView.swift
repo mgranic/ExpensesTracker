@@ -30,6 +30,10 @@ struct HomePageView: View {
                         filteredExpenses = expenseFilter.getExpensesByDate(dateFrom: 1, dateCalcMethod: .month, showFilterAlert: &showFilterAlert, modelContext: modelCtx)
                         let settingsManager = SettingManager()
                         charType = settingsManager.getDefaultChart()
+                        
+                        let scheduleExpenseManager = ScheduleExpenseManager(modelCtx: modelCtx)
+                        scheduleExpenseManager.executeScheduledExpensesTask()
+                        
                         totalMoneySpent = priceCalculator.getTotalSpent()
                     })
                 Button(action: {
