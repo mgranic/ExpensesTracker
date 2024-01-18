@@ -17,7 +17,6 @@ struct CreateEditScheduleForm: View {
     @State var category: Category = Category.none
     @State var interval: ExpenseInterval = ExpenseInterval.month
     @State var startDate: Date = Date()
-    @State var isRecurring: Bool = true
     
     private var isEditView: Bool
     private var selectedExpense: ScheduledExpense
@@ -31,7 +30,6 @@ struct CreateEditScheduleForm: View {
         self._category = State(initialValue: Category(rawValue: selectedExpense.category) ?? Category.none)
         self._interval = State(initialValue: ExpenseInterval(rawValue: selectedExpense.interval) ?? ExpenseInterval.month)
         self._startDate = State(initialValue: selectedExpense.startDate)
-        self._isRecurring = State(initialValue: selectedExpense.isRecurring)
         self.selectedExpense = selectedExpense
     }
     
@@ -62,11 +60,6 @@ struct CreateEditScheduleForm: View {
                         displayedComponents: [.date]
                     )
                 }
-                //Section {
-                //    Toggle(isOn: $isRecurring) {
-                //        Text("Repeating task")
-                //    }
-                //}
                 Section {
                     HStack(alignment: .center) {
                         Picker("Interval:", selection: $interval) {
@@ -85,12 +78,11 @@ struct CreateEditScheduleForm: View {
                                     selectedExpense.price = price
                                     selectedExpense.category = category.rawValue
                                     selectedExpense.interval = interval.rawValue
-                                    selectedExpense.isRecurring = isRecurring
                                     selectedExpense.startDate = startDate
                                     dismiss()
                                 } else { // add new scheduled expense
                                     let scheduleMgr = ScheduleExpenseManager(modelCtx: modelCtx)
-                                    let scheduledExpense = ScheduledExpense(name: name, price: price, category: category.rawValue, startDate: startDate, interval: interval.rawValue, isRecurring: isRecurring)
+                                    let scheduledExpense = ScheduledExpense(name: name, price: price, category: category.rawValue, startDate: startDate, interval: interval.rawValue)
                                     scheduleMgr.createScheduledExpense(scheduledExpense: scheduledExpense)
                                     isPresentSheet = false
                                     
