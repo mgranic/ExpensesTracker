@@ -44,7 +44,6 @@ struct ScheduleExpenseView: View {
                         .contentShape(Rectangle())
                         .onTapGesture {
                             // store selected scheduled expense into selectedExpense so that it can be edited
-                            //selectedExpense = ScheduledExpense(id: expense.id, name: expense.name, price: expense.price, category: expense.category, startDate: expense.startDate, interval: expense.interval, intervalStep: expense.intervalStep, isRecurring: expense.isRecurring, isActive: expense.isActive)
                             selectedExpense = expense
                         }
                     }

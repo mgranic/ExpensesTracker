@@ -58,7 +58,7 @@ struct CreateEditScheduleForm: View {
                     DatePicker (
                         "Date",
                         selection: $startDate,
-                        //in: dateFrom,
+                        in: dateFrom,
                         displayedComponents: [.date]
                     )
                 }
