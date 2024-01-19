@@ -81,7 +81,7 @@ class ScheduleExpenseManager {
                 }
                 let components = DateComponents(year: year, month: month, day: executionDateComponents.day)
                 
-                let newExpense = Expense(price: scheduledExpenses[i].price, name: scheduledExpenses[i].name, category: scheduledExpenses[i].category, timestamp: calendar.date(from: components)!)
+                let newExpense = Expense(price: scheduledExpenses[i].price, name: scheduledExpenses[i].name, category: scheduledExpenses[i].category, timestamp: calendar.date(from: components)!, isScheduledExpense: true)
                 modelCtx.insert(newExpense)
                 let priceCalculator = PriceCalculator()
                 priceCalculator.setTotalSpent(amount: newExpense.price, date: newExpense.timestamp)
@@ -176,7 +176,7 @@ class ScheduleExpenseManager {
         if ((scheduledDateComponents.day == currentDateComponents.day) &&
             (scheduledDateComponents.month == currentDateComponents.month) &&
             (scheduledDateComponents.year == currentDateComponents.year)) {
-            let newExpense = Expense(price: scheduledExpense.price, name: scheduledExpense.name, category: scheduledExpense.category, timestamp: scheduledExpense.startDate)
+            let newExpense = Expense(price: scheduledExpense.price, name: scheduledExpense.name, category: scheduledExpense.category, timestamp: scheduledExpense.startDate, isScheduledExpense: true)
             modelCtx.insert(newExpense)
             let priceCalculator = PriceCalculator()
             priceCalculator.setTotalSpent(amount: newExpense.price, date: newExpense.timestamp)

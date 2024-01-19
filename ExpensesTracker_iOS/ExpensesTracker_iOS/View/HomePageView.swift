@@ -66,6 +66,7 @@ struct HomePageView: View {
                                 .font(.title3)
                         }
                         .contentShape(Rectangle())
+                        .foregroundColor(expense.isScheduledExpense ? Color.yellow : Color.primary)
                         .onTapGesture {
                             // store selected expense into selectedExpense so that it can be edited
                             selectedExpense = expense
