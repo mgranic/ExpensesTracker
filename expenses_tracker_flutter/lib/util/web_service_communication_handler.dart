@@ -5,7 +5,7 @@ import 'package:http/http.dart'; // Contains a client for making API calls
 
 // chrome://inspect/#devices
 class ServiceCommunicationHandler {
-  final _timeout = 30; // seconds
+  final _timeout = 10; // seconds
   final String baseUrl = 'https:/localhost:5079'; // on device
 
   Future<String> getWebServiceResponse(String url) async {
@@ -22,18 +22,15 @@ class ServiceCommunicationHandler {
       print('Server communication error: ${err.toString()}');
     })
         .timeout(Duration(seconds: _timeout), onTimeout: () {
-      print(' HTTP request timeout');
+      print('HTTP request timeout');
     });
   }
 
   /// This function takes request function and executes it. It returns Future
   /// it returns future response that is received from the server
   Future<dynamic> returnSendWebServiceRequest(Function request) {
-    return request().catchError((err) {
+    return request().timeout(Duration(seconds: _timeout)).catchError((err) {
       print('Server communication error: ${err.toString()}');
-    })
-        .timeout(Duration(seconds: _timeout), onTimeout: () {
-      print(' HTTP request timeout');
     });
   }
 
@@ -58,7 +55,7 @@ class ServiceCommunicationHandler {
       print('Server communication error: ${err.toString()}');
     })
         .timeout(Duration(seconds: _timeout), onTimeout: () {
-      print(' HTTP request timeout');
+      print('HTTP request timeout');
     });
   }
 
@@ -73,7 +70,7 @@ class ServiceCommunicationHandler {
       print('Server communication error: ${err.toString()}');
     })
         .timeout(Duration(seconds: _timeout), onTimeout: () {
-      print(' HTTP request timeout');
+      print('HTTP request timeout');
     });
   }
 }

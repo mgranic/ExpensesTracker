@@ -38,6 +38,11 @@ dependencies:
 
   http: ^1.1.2
 
+  # DateTime format
+  intl: ^0.19.0
+
+  syncfusion_flutter_charts: ^24.1.46+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
