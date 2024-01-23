@@ -10,8 +10,3 @@ import Foundation
 struct GraphConfig {
     var type: ChartType
 }
-
-enum ChartType: String, CaseIterable {
-    case bar
-    case pie
-}

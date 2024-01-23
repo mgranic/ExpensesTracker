@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 class PriceCalculator {
     
@@ -104,5 +105,99 @@ class PriceCalculator {
         }
     
         return totalPrice.compactMap({ ($0, $1) })
+    }
+    
+    //calculate total money spent speciffic category within specific time interval
+    func totalPricePerCategoryInInterval(modelCtx: ModelContext, category: String, dateFrom: Int = 1, interval: ExpenseInterval) -> Double {
+        var totalPrice = 0.0
+        let expenseFilter = ExpenseFilter()
+        let calculatedIntervalMethod = intervalToCalcMethod(interval, dateFrom)
+        
+        // get list of expenses
+        let expenseList = expenseFilter.getExpensesByDateAndCategory(modelContext: modelCtx, category: category, dateFrom: calculatedIntervalMethod.1, dateCalcMethod: calculatedIntervalMethod.0)
+        
+        // calculate total price
+        for expense in expenseList {
+            totalPrice = totalPrice + expense.price
+        }
+        
+        return totalPrice
+    }
+    
+    //calculate total money spent speciffic category per specific time interval (daily, weekly ...)
+    func totalPricePerCategoryPerInterval(modelCtx: ModelContext, category: String, dateFrom: Int = 1, interval: ExpenseInterval) -> Double {
+        var totalPrice = 0.0
+        let expenseFilter = ExpenseFilter()
+        
+        // get list of expenses
+        let expenseList = expenseFilter.getExpensesByCategory(modelContext: modelCtx, category: category)
+        
+        let numberOfDaysPast = numberOfDaysBetween(expenseList[0].timestamp, and: expenseList[expenseList.count - 1].timestamp)
+        
+        // calculate total price
+        for expense in expenseList {
+            totalPrice = totalPrice + expense.price
+        }
+        
+        return (totalPrice / calcMethodNumberOfIntervals(interval, numberOfDaysPast: numberOfDaysPast))
+    }
+    
+    /*****************************************************PRIVATE FUNCTIONS**********************************************************/
+    
+    // transform ExpenseInterval into DateCalculationMethod
+    private func intervalToCalcMethod(_ interval: ExpenseInterval, _ dateFrom: Int) -> (DateCalculationMethod, Int) {
+        //var dateCalcMethod = DateCalculationMethod.month
+        var dateCalcMethod = (DateCalculationMethod.month, dateFrom)
+        
+        
+        // do the transformation
+        
+        switch interval {
+        case .day:
+            dateCalcMethod = (DateCalculationMethod.day, dateFrom)
+        case .week:
+            dateCalcMethod = (DateCalculationMethod.day, (dateFrom * 7))
+        case .month:
+            dateCalcMethod = (DateCalculationMethod.month, dateFrom)
+        case .year:
+            dateCalcMethod = (DateCalculationMethod.year, dateFrom)
+        default:
+            // maximum date is 20 years ago, basically making sure all of your expenses are included
+            dateCalcMethod = (DateCalculationMethod.year, 20)
+        }
+        
+        return dateCalcMethod
+    }
+    
+    // calculate number of intervals between latest and oldest expense. Total price will be divided by this number to calculate average in an interval
+    private func calcMethodNumberOfIntervals(_ interval: ExpenseInterval, numberOfDaysPast: Int) -> Double {
+        var numOfIntervals = Double(numberOfDaysPast)
+        
+        
+        // do the transformation
+        
+        switch interval {
+        case .day:
+            numOfIntervals = Double(numberOfDaysPast)
+        case .week:
+            numOfIntervals = Double(numberOfDaysPast) / 7
+        case .month:
+            numOfIntervals = Double(numberOfDaysPast) / 30
+        case .year:
+            numOfIntervals = Double(numberOfDaysPast) / 365
+        default:
+            numOfIntervals = Double(numberOfDaysPast)
+        }
+        
+        return numOfIntervals
+    }
+    
+    // number of days between two dates
+    private func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {
+        let fromDate = Calendar.current.startOfDay(for: from) // <1>
+        let toDate = Calendar.current.startOfDay(for: to) // <2>
+        let numberOfDays = Calendar.current.dateComponents([.day], from: fromDate, to: toDate) // <3>
+        
+        return numberOfDays.day!
     }
 }

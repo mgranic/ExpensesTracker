@@ -63,9 +63,11 @@ struct CreateEditScheduleForm: View {
                 Section {
                     HStack(alignment: .center) {
                         Picker("Interval:", selection: $interval) {
-                            ForEach(ExpenseInterval.allCases, id: \.self) { interval in
-                                Text("\(interval.rawValue)").tag(interval.rawValue)
-                            }
+                            //ForEach(ExpenseInterval.allCases, id: \.self) { interval in
+                            //    Text("\(interval.rawValue)").tag(interval.rawValue)
+                            //}
+                            Text("\(ExpenseInterval.month.rawValue)").tag(ExpenseInterval.month.rawValue)
+                            Text("\(ExpenseInterval.year.rawValue)").tag(ExpenseInterval.year.rawValue)
                         }
                     }
                 }

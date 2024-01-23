@@ -38,6 +38,7 @@ class Expense {
         }
     }
     
+    // search expense by all parameters available
     static func searchExpense(
         dateFrom: Date,
         dateTo: Date,
@@ -83,24 +84,37 @@ class Expense {
 
         
     }
-}
-
-enum Category: String, CaseIterable {
-    case none
-    case caffe
-    case food
-    case transportation
-    case clothing
-    case housing
-    case bills
-    case travel
-    case electronics
-    case subscriptions
-    case kids
-    case hobby
-    case sports
-    case fun
-    case health
-    case supplements
-    case other
+    
+    // search category by date and category
+    static func searchByDateCategory(
+        dateFrom: Date,
+        category: String
+    ) -> Predicate<Expense> {
+        
+        if (category == "all") {
+            return #Predicate<Expense> { expense in
+                expense.timestamp > dateFrom
+            }
+        } else {
+            return #Predicate<Expense> { expense in
+                (expense.timestamp > dateFrom) &&
+                (expense.category == category)
+            }
+        }
+    }
+    
+    // search expenses by category
+    static func searchByCategory(
+        category: String
+    ) -> Predicate<Expense> {
+        if (category == "all") {
+            return #Predicate<Expense> { expense in
+                true
+            }
+        } else {
+            return #Predicate<Expense> { expense in
+                expense.category == category
+            }
+        }
+    }
 }

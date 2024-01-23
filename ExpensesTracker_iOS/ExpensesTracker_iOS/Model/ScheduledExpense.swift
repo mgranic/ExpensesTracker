@@ -32,10 +32,3 @@ class ScheduledExpense {
         self.isFirstExecution = true
     }
 }
-
-enum ExpenseInterval: String, CaseIterable {
-    //case day
-    //case week
-    case month
-    case year
-}

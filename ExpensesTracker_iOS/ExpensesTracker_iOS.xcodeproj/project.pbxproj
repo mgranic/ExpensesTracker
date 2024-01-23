@@ -17,6 +17,7 @@
 		20C2B77F2B51913200237B28 /* CreateEditScheduleForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2B77E2B51913200237B28 /* CreateEditScheduleForm.swift */; };
 		20C2B7812B51945A00237B28 /* CreateScheduledExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2B7802B51945A00237B28 /* CreateScheduledExpenseView.swift */; };
 		20C2B7832B51948100237B28 /* EditScheduledExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C2B7822B51948100237B28 /* EditScheduledExpenseView.swift */; };
+		20C989D82B601798005C8BC4 /* EnumDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20C989D72B601798005C8BC4 /* EnumDefinition.swift */; };
 		20D05C8B2B4C8101005F1C4F /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D05C8A2B4C8101005F1C4F /* SearchView.swift */; };
 		20D0FB2C2B52A4EF004F67D3 /* ScheduleExpenseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D0FB2B2B52A4EE004F67D3 /* ScheduleExpenseManager.swift */; };
 		20D26E872B4574CE0049C191 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20D26E862B4574CE0049C191 /* SettingsManager.swift */; };
@@ -64,6 +65,7 @@
 		20C2B77E2B51913200237B28 /* CreateEditScheduleForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEditScheduleForm.swift; sourceTree = "<group>"; };
 		20C2B7802B51945A00237B28 /* CreateScheduledExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateScheduledExpenseView.swift; sourceTree = "<group>"; };
 		20C2B7822B51948100237B28 /* EditScheduledExpenseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditScheduledExpenseView.swift; sourceTree = "<group>"; };
+		20C989D72B601798005C8BC4 /* EnumDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnumDefinition.swift; sourceTree = "<group>"; };
 		20D05C8A2B4C8101005F1C4F /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		20D0FB2B2B52A4EE004F67D3 /* ScheduleExpenseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleExpenseManager.swift; sourceTree = "<group>"; };
 		20D26E862B4574CE0049C191 /* SettingsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsManager.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 		20C000062B3EA8FD00206CF1 /* CreateEditExpense */ = {
 			isa = PBXGroup;
 			children = (
+				20C000072B3EA93C00206CF1 /* CreateEditExpenseFormView.swift */,
 				20C00D7B2B39C3B800DE0B6F /* EditExpenseView.swift */,
 				20B5AA212B36A4140083A341 /* AddExpenseView.swift */,
 			);
@@ -124,7 +127,6 @@
 			isa = PBXGroup;
 			children = (
 				20D864752B42E8080099FEA3 /* GraphView.swift */,
-				20C000072B3EA93C00206CF1 /* CreateEditExpenseFormView.swift */,
 			);
 			path = common;
 			sourceTree = "<group>";
@@ -228,6 +230,7 @@
 				20DEEBCB2B35FAE600B63006 /* Expense.swift */,
 				20D91F222B4304F300545C78 /* GraphConfig.swift */,
 				20C2B77A2B5185D000237B28 /* ScheduledExpense.swift */,
+				20C989D72B601798005C8BC4 /* EnumDefinition.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -393,6 +396,7 @@
 				20C2B7792B5185B400237B28 /* ScheduleExpenseView.swift in Sources */,
 				20EE75312B4F1EE700465A0C /* ExpenseFilter.swift in Sources */,
 				20D91F232B4304F300545C78 /* GraphConfig.swift in Sources */,
+				20C989D82B601798005C8BC4 /* EnumDefinition.swift in Sources */,
 				20DEEB9D2B35F51D00B63006 /* ExpensesTracker_iOSApp.swift in Sources */,
 				20C00D7C2B39C3B800DE0B6F /* EditExpenseView.swift in Sources */,
 			);
