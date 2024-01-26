@@ -51,20 +51,37 @@ class ExpenseFilter {
         let dateFrom = calculateDateFromFilter(dateFrom: dateFrom, dateCalcMethod: dateCalcMethod) ?? Date()
         let predicate = Expense.searchByDateCategory(dateFrom: dateFrom, category: category)
         let descriptor = FetchDescriptor<Expense>(predicate: predicate, sortBy: [SortDescriptor(\.timestamp, order: .forward)])
-        return try! modelContext.fetch(descriptor)
+        //return try! modelContext.fetch(descriptor)
+        
+        do {
+            return try modelContext.fetch(descriptor)
+        } catch {
+            return []
+        }
     }
     
     // get all expenses by category
     func getExpensesByCategory(modelContext: ModelContext, category: String) -> [Expense] {
         let predicate = Expense.searchByCategory(category: category)
         let descriptor = FetchDescriptor<Expense>(predicate: predicate, sortBy: [SortDescriptor(\.timestamp, order: .forward)])
-        return try! modelContext.fetch(descriptor)
+        //return try! modelContext.fetch(descriptor)
+        
+        do {
+            return try modelContext.fetch(descriptor)
+        } catch {
+            return []
+        }
     }
     
     // get all expenses
     func getAllExpenses(modelContext: ModelContext) -> [Expense] {
         let descriptor = FetchDescriptor<Expense>(sortBy: [SortDescriptor(\.timestamp)])
-        return try! modelContext.fetch(descriptor)
+        //return try! modelContext.fetch(descriptor)
+        do {
+            return try! modelContext.fetch(descriptor)
+        } catch {
+            return []
+        }
     }
     
     /*****************************************************PRIVATE FUNCTIONS**********************************************************/

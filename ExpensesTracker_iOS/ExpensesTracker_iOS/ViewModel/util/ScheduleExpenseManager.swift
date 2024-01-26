@@ -19,7 +19,12 @@ class ScheduleExpenseManager {
     // get all scheduled expenses from database
     func getAllScheduledExpenses() -> [ScheduledExpense] {
         let descriptor = FetchDescriptor<ScheduledExpense>(sortBy: [SortDescriptor(\.name)])
-        return try! modelCtx.fetch(descriptor)
+        //return try! modelCtx.fetch(descriptor)
+        do {
+            return try modelCtx.fetch(descriptor)
+        } catch {
+            return []
+        }
     }
     
     // create scheduled expense in databaseÏ
