@@ -132,7 +132,11 @@ class PriceCalculator {
         // get list of expenses
         let expenseList = expenseFilter.getExpensesByCategory(modelContext: modelCtx, category: category)
         
-        let numberOfDaysPast = numberOfDaysBetween(expenseList[0].timestamp, and: expenseList[expenseList.count - 1].timestamp)
+        if (expenseList.isEmpty) {
+            return 0
+        }
+        
+        let numberOfDaysPast = numberOfDaysBetween(expenseList[0].timestamp, and: Date())
         
         // calculate total price
         for expense in expenseList {
@@ -198,6 +202,11 @@ class PriceCalculator {
         let toDate = Calendar.current.startOfDay(for: to) // <2>
         let numberOfDays = Calendar.current.dateComponents([.day], from: fromDate, to: toDate) // <3>
         
-        return numberOfDays.day!
+        // if day diff is 0 or failed to be calculated, return 1
+        if let dayDiff = numberOfDays.day {
+            return ((dayDiff == 0) ? 1 : dayDiff)
+        } else {
+            return 1
+        }
     }
 }
