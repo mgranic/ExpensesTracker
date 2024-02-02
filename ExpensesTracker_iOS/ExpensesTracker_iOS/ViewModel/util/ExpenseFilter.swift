@@ -89,19 +89,22 @@ class ExpenseFilter {
     // convert DateCalculationMethod into dateFrom to use in filter
     private func calculateDateFromFilter(dateFrom: Int, dateCalcMethod: DateCalculationMethod) -> Date? {
         var earlyDate: Date?
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) ?? Date()
+        var todayEofDay = Calendar.current.startOfDay(for: tomorrow)
+        
         
         switch dateCalcMethod {
         case .day:
-            earlyDate = Calendar.current.date(byAdding: .day, value: -dateFrom, to: Date())
+            earlyDate = Calendar.current.date(byAdding: .day, value: -dateFrom, to: todayEofDay)
         case .month:
-            earlyDate = Calendar.current.date(byAdding: .month, value: -dateFrom, to: Date())
+            earlyDate = Calendar.current.date(byAdding: .month, value: -dateFrom, to: todayEofDay)
         case .year:
-            earlyDate = Calendar.current.date(byAdding: .year, value: -dateFrom, to: Date())
+            earlyDate = Calendar.current.date(byAdding: .year, value: -dateFrom, to: todayEofDay)
         case .max:
             fallthrough
         default:
             // maximum date is 20 years ago, basically making sure all of your expenses are included
-            earlyDate = Calendar.current.date(byAdding: .year, value: -20, to: Date())
+            earlyDate = Calendar.current.date(byAdding: .year, value: -20, to: todayEofDay)
         }
         
         return earlyDate

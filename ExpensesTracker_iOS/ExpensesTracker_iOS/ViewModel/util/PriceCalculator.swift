@@ -9,7 +9,7 @@ import Foundation
 import SwiftData
 
 class PriceCalculator {
-    
+    // when you edit expense, update total price spent this month
     func setTotalSpentOnEdit(oldAmount: Double, newAmount: Double, oldDate: Date, newDate: Date) {
         let oldDateComponents = Calendar.current.dateComponents([.month, .year], from: oldDate)
         let newDateComponents = Calendar.current.dateComponents([.month, .year], from: newDate)
@@ -43,7 +43,7 @@ class PriceCalculator {
         
     }
     
-    // save total spent amount to user defaults
+    // save total spent amount for this month to user defaults
     func setTotalSpent(amount: Double, date: Date) {
         
         let dateComponenets = Calendar.current.dateComponents([.month, .year], from: date)
