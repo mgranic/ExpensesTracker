@@ -34,6 +34,15 @@ class ServiceCommunicationHandler {
     });
   }
 
+  /// This function takes request function and executes it. It returns Future
+  /// it returns future response that is received from the server
+  /// request function takes additional paramater
+  Future<dynamic> returnSendWebServiceRequestParam(Function request, dynamic param) {
+    return request(param).timeout(Duration(seconds: _timeout)).catchError((err) {
+      print('Server communication error: ${err.toString()}');
+    });
+  }
+
   /// This function takes request function and responseHandlerFunction and executes them
   /// it also handles web service response timeout as well as other potential generic failures
   /// "request" and "respnseHandler" do bot have to handle any generic failure scenario
