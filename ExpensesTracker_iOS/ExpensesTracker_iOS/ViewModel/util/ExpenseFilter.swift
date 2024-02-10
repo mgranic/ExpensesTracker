@@ -31,7 +31,7 @@ class ExpenseFilter {
         
         do {
             let predicate = Expense.searchByDate(dateFrom: earlyDate!)
-            let descriptor = FetchDescriptor<Expense>(predicate: predicate)
+            let descriptor = FetchDescriptor<Expense>(predicate: predicate, sortBy: [SortDescriptor(\.timestamp, order: .reverse)])
             return try modelContext.fetch(descriptor)
         } catch {
             showFilterAlert = true
