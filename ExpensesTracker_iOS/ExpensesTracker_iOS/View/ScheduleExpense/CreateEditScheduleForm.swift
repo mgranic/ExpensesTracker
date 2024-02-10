@@ -66,8 +66,8 @@ struct CreateEditScheduleForm: View {
                             //ForEach(ExpenseInterval.allCases, id: \.self) { interval in
                             //    Text("\(interval.rawValue)").tag(interval.rawValue)
                             //}
-                            Text("\(ExpenseInterval.month.rawValue)").tag(ExpenseInterval.month.rawValue)
-                            Text("\(ExpenseInterval.year.rawValue)").tag(ExpenseInterval.year.rawValue)
+                            Text("\(ExpenseInterval.month.rawValue)").tag(ExpenseInterval.month)
+                            Text("\(ExpenseInterval.year.rawValue)").tag(ExpenseInterval.year)
                         }
                     }
                 }
