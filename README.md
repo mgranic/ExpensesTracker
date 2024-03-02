@@ -1,5 +1,5 @@
 # ExpenseTracker
-## _iOS applicaion to track your expenses_
+## _iOS application to track your expenses_
 
 Expense tracker is iOS (SwiftUI) aplication that allows you to track your expenses and view different statistics.
 
