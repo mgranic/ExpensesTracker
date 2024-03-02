@@ -27,9 +27,7 @@ Expense tracker is iOS (SwiftUI) aplication that allows you to track your expens
 - after expense is created list of expenses is updated, chart is updated, total spent this month is updated
 - taping on any expense shows menu in which you can edit or delete the expense
 
-<video width="320" height="240" controls>
-  <source src="resources/RPReplay_Final1709391301.MP4" type="video/mp4">
-</video>
+![ExpenseTracker create expense](resources/RPReplay_Final1709391301.gif "HomePage")
 
 ### Schedule expense
 - expenses can be scheduled to be executed in regular intervals (like bills, morgage etc)
@@ -37,27 +35,21 @@ Expense tracker is iOS (SwiftUI) aplication that allows you to track your expens
 - scheduled expenses that have been executed are marked yellow in list of expenses
 - taping on any scheduled expense shows menu in which you can edit or delete the scheduled expense
 
+![ExpenseTracker schedule expense](resources/RPReplay_Final1709391649.gif "HomePage")
 
-<video width="320" height="240" controls>
-  <source src="resources/RPReplay_Final1709391649.MP4" type="video/mp4">
-</video>
 
 ### Search expense (filter by different parameters)
 - in order to access search menu tap on magnifying glass in task bar
 - as user changes search parameters list of expenses is automatically updated
 - taping on any of the expenses presents to Edit/Delete expense sheet to user
 
-<video width="320" height="240" controls>
-  <source src="resources/RPReplay_Final1707231171.mp4" type="video/mp4">
-</video>
+![ExpenseTracker search expense](resources/RPReplay_Final1707231171.gif "HomePage")
 
 ### Change chart type shown on main screen
 - user can change between bar and pie chart as a default chart on main screen
 - no metter which type of chart is set to default user can still view all charts in expense stats menu
 
-<video width="320" height="240" controls>
-  <source src="resources/RPReplay_Final1707231280.mp4" type="video/mp4">
-</video>
+![ExpenseTracker change default chart type](resources/RPReplay_Final1707231280.gif "HomePage")
 
 ### See different expense statistics
 - in expense stats screen user can see different charts that show different perspective of their expenses
@@ -65,9 +57,7 @@ Expense tracker is iOS (SwiftUI) aplication that allows you to track your expens
 - user can see total spent per category in certain interval of time
 - user can see avarage expenditure per category in certain interval of time
 
-<video width="320" height="240" controls>
-  <source src="resources/RPReplay_Final1707231248.mp4" type="video/mp4">
-</video>
+![ExpenseTracker expense statistics](resources/RPReplay_Final1707231248.gif "HomePage")
 
 ## Task bar menu
 - navigate between different menus in the app
