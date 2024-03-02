@@ -3,21 +3,88 @@
 
 Expense tracker is iOS (SwiftUI) aplication that allows you to track your expenses and view different statistics.
 
-There is also a Flutter app in the repo that is now just used to test web service (.NET). This web service will ulimately be used to backup your data on server.
-Flutter app will evolve into desktop/web/Android application, but for now it is "work in progress".
-
 ## Features
 
 - create, edit and delete expenses
-- view statistics of your spending by category
+- view statistics of your spending by category and time
 - see different charts to better understand your expenses
 - filter your expenses 
 
-## Releases
-### v1.0.0
-- create, edit. delete expenses
-- handle all the errors
-- persist everything to database
-- draw basic info on the graph
-- allow for basic filtering by date
+## Main screen
+- magnyfing glass (navigate to search screen)
+- taskbar menu (navigate to different screens)
+- Total - total money spent this month
+- create new expense button
+- chart showing money spent per different category of expenses
+- buttons to use data (expenses) from different time intervals to be  shown on the chart and in expense list bellow
+- expense list shows expenses in created in time interval selected above. Taping on any of them presents edit/delete sheet
+- expenses created automatically through scheduling mechainsm are marked yellow in expense list
+
+![ExpenseTracker main screen screenshot](resources/IMG_3821.PNG "HomePage")
+
+### Main screen (create expense)
+- Total spent this month is zero at the beginning since all the expenses are from previous month
+- after expense is created list of expenses is updated, chart is updated, total spent this month is updated
+- taping on any expense shows menu in which you can edit or delete the expense
+
+<video width="320" height="240" controls>
+  <source src="resources/RPReplay_Final1709391301.MP4" type="video/mp4">
+</video>
+
+### Schedule expense
+- expenses can be scheduled to be executed in regular intervals (like bills, morgage etc)
+- scheduled expense in this example has been set to execute today so it is execudet imidietly (total money spent this month updated, graph updated, list of expenses updated)
+- scheduled expenses that have been executed are marked yellow in list of expenses
+- taping on any scheduled expense shows menu in which you can edit or delete the scheduled expense
+
+
+<video width="320" height="240" controls>
+  <source src="resources/RPReplay_Final1709391649.MP4" type="video/mp4">
+</video>
+
+### Search expense (filter by different parameters)
+- in order to access search menu tap on magnifying glass in task bar
+- as user changes search parameters list of expenses is automatically updated
+- taping on any of the expenses presents to Edit/Delete expense sheet to user
+
+<video width="320" height="240" controls>
+  <source src="resources/RPReplay_Final1707231171.mp4" type="video/mp4">
+</video>
+
+### Change chart type shown on main screen
+- user can change between bar and pie chart as a default chart on main screen
+- no metter which type of chart is set to default user can still view all charts in expense stats menu
+
+<video width="320" height="240" controls>
+  <source src="resources/RPReplay_Final1707231280.mp4" type="video/mp4">
+</video>
+
+### See different expense statistics
+- in expense stats screen user can see different charts that show different perspective of their expenses
+- charts can be filtered by date
+- user can see total spent per category in certain interval of time
+- user can see avarage expenditure per category in certain interval of time
+
+<video width="320" height="240" controls>
+  <source src="resources/RPReplay_Final1707231248.mp4" type="video/mp4">
+</video>
+
+## Task bar menu
+- navigate between different menus in the app
+
+![ExpenseTracker task bar screenshot](resources/IMG_3824.PNG "HomePage")
+
+## Settings (factory reset the app - loose all the data)
+- factory reset the application
+- this deletes all the data from the app and you start from beginning
+
+![ExpenseTracker settings screenshot](resources/IMG_3654.PNG "HomePage")
+
+## Edit scheduled expense
+- screen where user can edit or delete already created scheduled expense
+
+![ExpenseTracker edit scheduled expense screenshot](resources/IMG_3825.PNG "HomePage")
+
+
+
 
